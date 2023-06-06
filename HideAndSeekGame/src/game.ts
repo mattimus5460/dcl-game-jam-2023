@@ -2,12 +2,62 @@ import { setTimeout } from "@dcl/ecs-scene-utils";
 import GameManager, { weapon } from "./gameManager";
 import * as ui from "@dcl/ui-scene-utils";
 import { startingInfo, startingInfoExitButton } from "./ui";
+import * as utils from "@dcl/ecs-scene-utils";
 
 const manager = new GameManager();
 
+export function SpawnItem(
+  model: GLTFShape,
+  transform: Transform,
+  sound: AudioClip,
+  respawnTime: number
+) {
+  let entity = new Entity();
+  engine.addEntity(entity);
+  entity.addComponent(model);
+  entity.addComponent(transform);
+
+  let soundEntity = new Entity();
+  soundEntity.addComponent(new AudioSource(sound));
+  soundEntity.addComponent(new Transform());
+
+  engine.addEntity(soundEntity);
+  soundEntity.setParent(Attachable.AVATAR);
+
+  /**
+   * This trigger allows the player to stand on the same spot and continually
+   * pick up an item without having to exit and re-enter the trigger themselves
+   */
+  entity.addComponent(
+    new utils.TriggerComponent(
+      new utils.TriggerBoxShape(new Vector3(1.5, 3, 1.5)), // We need a separate trigger instance for each item as we'll be modifying it
+      {
+        onCameraEnter: () => {
+          soundEntity.getComponent(AudioSource).playOnce();
+          manager.increaseHealth(1);
+          entity.getComponent(Transform).scale.setAll(0);
+          const origTriggerPosY = entity.getComponent(utils.TriggerComponent)
+            .shape.position.y;
+          entity.getComponent(utils.TriggerComponent).shape.position.y = -100; // Move the trigger so that the player exits and re-enters the trigger
+
+          entity.addComponent(
+            new utils.Delay(respawnTime, () => {
+              entity.getComponent(Transform).scale.setAll(1);
+              entity.getComponent(utils.TriggerComponent).shape.position.y =
+                origTriggerPosY; // Revert trigger position back to its original position
+            })
+          );
+        },
+      }
+    )
+  );
+
+  return entity;
+}
+
 // #1
 const myVideoClip = new VideoClip(
-  "https://player.vimeo.com/external/720437869.m3u8?s=d45f684310460260112e2a177e0ef129b4ca1243"
+  "https://player.vimeo.com/external/833509817.m3u8?s=ca075983c0e8d823791e117b8e07d75aa05df8a7"
 );
 
 // #2
@@ -233,7 +283,7 @@ function machinegunBox() {
           purchase.playOnce();
           weapon.addGun({
             type: "AK - 47",
-            ammo: 100,
+            ammo: 70,
             shape: new GLTFShape("models/Rifle.glb"),
             damage: 30,
           });
@@ -310,7 +360,7 @@ function door1() {
       },
       {
         hoverText: "1000 points for a the door",
-        distance: 4,
+        distance: 2,
       }
     )
   );
@@ -349,7 +399,7 @@ function door2() {
       },
       {
         hoverText: "1000 points for a the door",
-        distance: 4,
+        distance: 2,
       }
     )
   );
@@ -388,7 +438,7 @@ function door3() {
       },
       {
         hoverText: "1000 points for a the door",
-        distance: 4,
+        distance: 2,
       }
     )
   );
@@ -427,7 +477,7 @@ function door4() {
       },
       {
         hoverText: "1000 points for a the door",
-        distance: 4,
+        distance: 2,
       }
     )
   );
@@ -466,7 +516,7 @@ function door5() {
       },
       {
         hoverText: "1000 points for a the door",
-        distance: 4,
+        distance: 2,
       }
     )
   );
@@ -505,7 +555,7 @@ function door6() {
       },
       {
         hoverText: "1000 points for a the door",
-        distance: 4,
+        distance: 2,
       }
     )
   );
@@ -544,7 +594,7 @@ function door7() {
       },
       {
         hoverText: "1000 points for a the door",
-        distance: 4,
+        distance: 2,
       }
     )
   );

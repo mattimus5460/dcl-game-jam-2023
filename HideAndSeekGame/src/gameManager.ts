@@ -146,6 +146,11 @@ export default class GameManager {
     });
   }
 
+  increaseHealth(amount) {
+    this.healthBar.set(amount);
+    // Assuming that the health bar is updated elsewhere in your code
+  }
+
   async createZombiesForRound() {
     const response = await getPlayerRounds();
     ui.displayAnnouncement(`Round ${this.round}`);
