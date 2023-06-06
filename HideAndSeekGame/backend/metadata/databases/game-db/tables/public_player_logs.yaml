@@ -1,0 +1,22 @@
+table:
+  name: player_logs
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        player_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - player_id
+        - timestamp
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - player_id
+        - timestamp
+      filter:
+        player_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true

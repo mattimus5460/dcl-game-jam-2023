@@ -1,0 +1,39 @@
+table:
+  name: zombies_leader_board
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        player_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - id
+        - rounds
+        - player_id
+        - username
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - rounds
+        - player_id
+        - username
+      filter:
+        player_id:
+          _eq: X-Hasura-User-Id
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - rounds
+        - player_id
+        - username
+      filter:
+        player_id:
+          _eq: X-Hasura-User-Id
+      check:
+        player_id:
+          _eq: X-Hasura-User-Id

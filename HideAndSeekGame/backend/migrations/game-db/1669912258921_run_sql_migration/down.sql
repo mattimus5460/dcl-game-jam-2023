@@ -1,0 +1,3 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- ALTER TABLE equipable_items ALTER COLUMN item_id  TYPE integer USING (item_id::integer);

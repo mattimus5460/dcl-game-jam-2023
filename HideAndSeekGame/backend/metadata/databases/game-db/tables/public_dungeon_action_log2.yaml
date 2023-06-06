@@ -1,0 +1,3 @@
+table:
+  name: dungeon_action_log2
+  schema: public

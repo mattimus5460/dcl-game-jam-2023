@@ -1,0 +1,3 @@
+table:
+  name: player_actions
+  schema: public

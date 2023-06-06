@@ -1,0 +1,57 @@
+{
+     "worldConfiguration" : {
+          "name": "hide.dcl.eth"
+        },
+  "display": {
+    "title": "DCL Zombies",
+    "description": "DCL Zombies",
+    "navmapThumbnail": "scene-thumbnail.png",
+    "favicon": "favicon_asset"
+  },
+  "contact": {
+    "name": "DCLDating",
+    "email": ""
+  },
+  "owner": "DCLDATING",
+  "scene": {
+    "parcels": [
+      "141,-2",
+      "141,-3",
+      "140,-2",
+      "140,-3"
+    ],
+    "base": "140,-3"
+  },
+  "communications": {
+    "type": "webrtc",
+    "signalling": "https://signalling-01.decentraland.org"
+  },
+  "policy": {
+    "contentRating": "E",
+    "fly": true,
+    "voiceEnabled": true,
+    "blacklist": []
+  },
+  "requiredPermissions": [
+    "ALLOW_TO_TRIGGER_AVATAR_EMOTE",
+    "ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE"
+  ],
+  "main": "bin/game.js",
+  "tags": [],
+  "spawnPoints": [
+    {
+      "name": "spawn1",
+      "default": true,
+      "position": {   
+        "x": 23.42,  
+        "y": 0,
+        "z": 13.70
+      },
+      "cameraTarget": {  
+        "x": 9.850959396362305,  
+        "y": 9.91795597076416,
+        "z": 9.56078052520752
+      }
+    }
+  ]
+}

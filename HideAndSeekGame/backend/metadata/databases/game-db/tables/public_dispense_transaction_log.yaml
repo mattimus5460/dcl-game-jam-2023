@@ -1,0 +1,3 @@
+table:
+  name: dispense_transaction_log
+  schema: public

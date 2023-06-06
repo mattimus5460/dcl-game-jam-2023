@@ -1,0 +1,269 @@
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: InsertPlayerActionLog
+  methods:
+    - POST
+    - PUT
+  name: InsertPlayerActionLog
+  url: action/:player_id/:action_name
+- comment: Get all the timestamps of palyer
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Player Logs
+  methods:
+    - GET
+  name: Get Player Logs
+  url: all_logs/:playerID
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Dispenser Logs
+  methods:
+    - POST
+  name: Get Dispenser Logs
+  url: claims/byUser
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Insert Dispense Action Log
+  methods:
+    - POST
+    - PUT
+  name: Insert Dispense Action Log
+  url: dispense/action/log
+- comment: Count how many times a player has completed a dungeon
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: InsertDungeonActionLog
+  methods:
+    - POST
+    - PUT
+  name: InsertDungeonActionLog
+  url: dungeon/:player_id/:action_name
+- comment: Return Dungeon Count
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: GetDungeonCount
+  methods:
+    - GET
+  name: GetDungeonCount
+  url: dungeonCount/:playerID
+- comment: Gets the player inventory
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Player Inventory
+  methods:
+    - GET
+  name: Get Player Inventory
+  url: inventory/:playerID
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Update Item Equip Status
+  methods:
+    - POST
+    - PATCH
+  name: Update Item Equip Status
+  url: item/:playerId/equip/:itemId
+- comment: Creates an item inventory log
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Add Item
+  methods:
+    - POST
+  name: Add Item
+  url: item/action/:playerId
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Add Player Equipable Item
+  methods:
+    - POST
+    - PUT
+    - PATCH
+  name: Add Player Equipable Item
+  url: item/equip/:id
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Player Equipable items inventory
+  methods:
+    - GET
+  name: Get Player Equipable items inventory
+  url: item/equip/:playerID
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Player Equiped items
+  methods:
+    - GET
+  name: Get Player Equiped items
+  url: item/equip/:playerID/equiped
+- comment: player landed log
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: player_landed_log
+  methods:
+    - POST
+    - PUT
+  name: player_landed_log
+  url: landed_log
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: getPlayerLevelLeaderbaord
+  methods:
+    - GET
+  name: getPlayerLevelLeaderbaord
+  url: leaderbaord/levels/:level_type
+- comment: Endpoint to update XP
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Update XP
+  methods:
+    - POST
+  name: Update XP
+  url: level/:levelType/xp/:playerId/add
+- comment: Get Player Levels
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Player Levels
+  methods:
+    - GET
+  name: Get Player Levels
+  url: level/:playerID
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Player pets
+  methods:
+    - GET
+  name: Get Player pets
+  url: pet/:playerId
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Create Pet
+  methods:
+    - POST
+    - PUT
+  name: Create Pet
+  url: pet/:playerId/:petType
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Add Player Avatar
+  methods:
+    - POST
+    - PUT
+  name: Add Player Avatar
+  url: player/:playerID/avatar
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Player Avatars
+  methods:
+    - GET
+  name: Get Player Avatars
+  url: player/:playerID/avatar
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Create Player
+  methods:
+    - POST
+    - PUT
+  name: Create Player
+  url: player/:playerID/info
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Player Info
+  methods:
+    - GET
+  name: Get Player Info
+  url: player/:playerID/info
+- comment: |-
+    counts the number of days a player completely completed a quest for
+    'zombies_leader_board' table.
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Get Player completed quest couunt
+  methods:
+    - GET
+  name: Get Player completed quest couunt
+  url: quests/completed/:player_id_p/count
+- comment: Create Player Rounds in zombies_leader_board table.
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: createPlayerRounds
+  methods:
+    - POST
+  name: createPlayerRounds
+  url: rounds
+- comment: |-
+    ZOMBIES >>>>>
+    update player rounds in 'zombies_leader_board' table.
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: updatePlayerRounds
+  methods:
+    - PUT
+  name: updatePlayerRounds
+  url: rounds
+- comment: |-
+    ZOMBIES>>>>
+    get the whole leader board requesitng from 'zombies_leader_board'
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: getLeaderBoard
+  methods:
+    - GET
+  name: getLeaderBoard
+  url: rounds
+- comment: GEt all the rounds by pler id.
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: getRoundsByPlayerId
+  methods:
+    - GET
+  name: getRoundsByPlayerId
+  url: rounds/:playerID
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Add Username to DB
+  methods:
+    - POST
+    - PUT
+  name: Add Username to DB
+  url: userinfo/:player_id/add

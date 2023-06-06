@@ -1,0 +1,1 @@
+CREATE TABLE "public"."zombies_leader_board" ("id" serial NOT NULL, "username" text NOT NULL, "rounds" integer NOT NULL, PRIMARY KEY ("id") , UNIQUE ("id"));COMMENT ON TABLE "public"."zombies_leader_board" IS E'Zombies: leader board';

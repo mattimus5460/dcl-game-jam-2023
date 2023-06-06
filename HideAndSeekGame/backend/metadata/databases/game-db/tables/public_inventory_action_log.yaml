@@ -1,0 +1,29 @@
+table:
+  name: inventory_action_log
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        player_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - action_type
+        - count
+        - created_at
+        - item_id
+        - player_id
+        - reason
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - action_type
+        - item_id
+        - player_id
+        - count
+        - created_at
+      filter:
+        player_id:
+          _eq: X-Hasura-User-Id
+      allow_aggregations: true

@@ -1,0 +1,31 @@
+table:
+  name: player_to_username
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        player_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - player_id
+        - username
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - player_id
+        - username
+        - created_at
+        - updated_at
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - player_id
+        - username
+      filter:
+        player_id:
+          _eq: X-Hasura-User-Id
+      check: null

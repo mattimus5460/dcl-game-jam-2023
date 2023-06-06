@@ -1,0 +1,266 @@
+- name: allowed-queries
+  definition:
+    queries:
+      - name: Get Player Inventory
+        query: |
+          query GetInventory ($playerID: String!) {
+            computed_player_inventory(where: {player_id:{_eq:$playerID}}) {
+              itemId: item_id
+              count
+            }
+          }
+      - name: Update XP
+        query: |
+          mutation UpdateXP ($levelType: String!, $playerId: String!, $level: Int!, $xp: Int!, $total: Int!) {
+            insert_xp_action_log_one(object: {level_type:$levelType,player_id:$playerId,level:$level,xp_gained:$xp,total_xp:$total}) {
+              level_type
+              level
+              created_at
+              xp_gained
+              total_xp
+            }
+          }
+      - name: Get Player Levels
+        query: |
+          query GetLevels ($playerID: String!) {
+            levels: computed_player_levels(where: {player_id:{_eq:$playerID}}) {
+              level
+              level_type
+              player_id
+              xp
+            }
+          }
+      - name: Update Item Equip Status
+        query: |
+          mutation ChangeItemEquip ($playerId: String!, $itemId: Int!, $equipped: Boolean = false) {
+            update_equipable_items(where: {item_id:{_eq:$itemId},player_id:{_eq:$playerId}}, _set: {equipped:$equipped}) {
+              affected_rows
+            }
+          }
+      - name: Get Player Equiped items
+        query: |
+          query GetPlayerEqquipedItems ($playerID: String = "") {
+            items: equipable_items(where: {player_id:{_eq:$playerID},equipped:{_eq:true}}) {
+              equipped
+              item_id
+              item_type
+            }
+          }
+      - name: Get Player Equipable items inventory
+        query: |
+          query GetPlayerEquipableItems ($playerID: String!) {
+            items: equipable_items(where: {player_id:{_eq:$playerID}}) {
+              equipped
+              item_id
+              item_type
+            }
+          }
+      - name: Create Pet
+        query: |
+          mutation AddPetToInventory ($playerId: String!, $petType: String!) {
+            insert_pets_inventory_one(object: {pet_type:$petType,player_id:$playerId,owned:true}) {
+              pet_type
+              player_id
+              updated_at
+              owned
+              date_sold
+              created_at
+              transaction
+            }
+          }
+      - name: Get Player pets
+        query: |
+          query GetPlayerPets ($playerId: String!) {
+            pets: pets_inventory(where: {player_id:{_eq:$playerId},owned:{_eq:true}}) {
+              pet: pet_type
+            }
+          }
+      - name: Add Player Avatar
+        query: |
+          mutation InsertPlayerAvatarModel ($playerID: String!, $model: String!, $weight: Int = 0) {
+            insert_player_avatar_model_one(object: {player_id:$playerID,model:$model,weight:$weight}) {
+              player_id
+              model
+            }
+          }
+      - name: Get Player Avatars
+        query: |
+          query GetPlayerAvatarModels ($playerID: String!) {
+            models: player_avatar_model(where: {player_id:{_eq:$playerID}}) {
+              file: model
+              weight
+            }
+          }
+      - name: Add Player Equipable Item
+        query: |
+          mutation AddEquipableItemToInventory ($id: String!, $item_id: Int!, $item_type: String!, $equipped: Boolean = false) {
+            insert_equipable_items_one(object: {item_id:$item_id,item_type:$item_type,player_id:$id,equipped:$equipped}, on_conflict: {constraint:equipable_items_pkey,update_columns:equipped}) {
+              item_id
+              item_type
+              player_id
+              equipped
+            }
+          }
+      - name: InsertPlayerActionLog
+        query: |
+          mutation InsertPlayerAction ($action_name: String!, $player_id: String!) {
+            insert_player_action_log_one(object: {action_name:$action_name,player_id:$player_id}) {
+              action_name
+              created_at
+              player_id
+            }
+          }
+      - name: InsertDungeonActionLog
+        query: |
+          mutation insertDungeonActionLog ($action_name: String!, $player_id: String!) {
+            insert_dungeon_action_log_one(object: {action_name:$action_name,player_id:$player_id}) {
+              action_name
+              created_at
+              dungeons_completed
+              player_id
+            }
+          }
+      - name: GetDungeonCount
+        query: |
+          query getDungeonCount ($playerID: String = "") {
+            result: dungeon_action_log_aggregate(where: {player_id:{_eq:$playerID}}) {
+              runs: aggregate {
+                count(columns: action_name)
+              }
+            }
+          }
+      - name: Add Item
+        query: |
+          mutation ItemAction ($itemId: String!, $playerId: String!, $actionType: String = "add", $count: Int = 1, $reason: String = "unspecified") {
+            insert_inventory_action_log_one(object: {item_id:$itemId,action_type:$actionType,player_id:$playerId,count:$count,reason:$reason}) {
+              action_type
+              count
+              created_at
+              item_id
+              player_id
+            }
+          }
+      - name: Create Player
+        query: |
+          mutation PlayerCreation ($playerID: String!, $alliance: Int!, $race: Int!, $skill: Int!) {
+            insert_player_creation_one(object: {player_id:$playerID,alliance:$alliance,race:$race,skill:$skill}, on_conflict: {constraint:player_creation_pkey,update_columns:[alliance,race,skill]}) {
+              alliance
+              player_id
+              race
+              skill
+            }
+          }
+      - name: Insert Dispense Action Log
+        query: |
+          mutation InsertDispenseActionLog ($itemName: String = "", $name: String = "", $status: String!, $txnHash: String!, $urn: String!, $userAddress: String!) {
+            insert_dispense_transaction_log_one(object: {itemName:$itemName,name:$name,status:$status,txnHash:$txnHash,urn:$urn,userAddress:$userAddress}) {
+              claimDateTime
+              itemName
+              name
+              status
+              txnHash
+              urn
+              userAddress
+            }
+          }
+      - name: Get Dispenser Logs
+        query: |
+          query GetDispenseTransactionLog ($userAddress: String!, $urn: String!) {
+            dispense_transaction_log(where: {userAddress:{_ilike:$userAddress},urn:{_eq:$urn}}) {
+              itemName
+              name
+              status
+              txnHash
+              urn
+              userAddress
+              claimDateTime
+            }
+          }
+      - name: Add Username to DB
+        query: |
+          mutation CreatesPlayerToUsername ($username: String!, $player_id: String!) {
+            insert_player_to_username_one(object: {player_id:$player_id,username:$username}, on_conflict: {constraint:player_to_username_pkey,update_columns:username}) {
+              player_id
+              username
+              updated_at
+              created_at
+            }
+          }
+      - name: Get Player Info
+        query: |
+          query GetPlayerInfo ($playerID: String!) {
+            player: player_creation_by_pk(player_id: $playerID) {
+              alliance
+              player_id
+              race
+              skill
+              userInfo {
+                username
+              }
+            }
+          }
+      - name: getPlayerLevelLeaderbaord
+        query: |
+          query getPlayerLevelLeaderBaord ($level_type: String = "player") {
+            computed_player_levels(order_by: {level:desc}, limit: 100, where: {level_type:{_eq:$level_type}}) {
+              player_id
+              level_type
+              level
+              userInfo {
+                username
+              }
+            }
+          }
+      - name: Get Player Logs
+        query: |
+          query GetPlayerLogs ($playerID: String) {
+            player_logs(where: {player_id:{_eq:$playerID}}) {
+              timestamp
+            }
+          }
+      - name: player_landed_log
+        query: |
+          mutation InsertPlayerLogs ($timestamp: String, $playerID: String) {
+            insert_player_logs(objects: {timestamp:$timestamp,player_id:$playerID}) {
+              affected_rows
+            }
+          }
+      - name: getRoundsByPlayerId
+        query: |
+          query GetRoundsByPlayerID ($playerID: String) {
+            zombies_leader_board(where: {player_id:{_eq:$playerID}}) {
+              rounds
+            }
+          }
+      - name: createPlayerRounds
+        query: |
+          mutation InsertZombiesLeaderBoard ($playerID: String, $username: String, $rounds: Int) {
+            insert_zombies_leader_board(objects: {player_id:$playerID,username:$username,rounds:$rounds}) {
+              affected_rows
+            }
+          }
+      - name: Get Player completed quest couunt
+        query: |
+          query GetPlayerCompleted ($player_id_p: String) {
+            value: get_player_full_quest_completed_count(args: {player_id_p:$player_id_p}) {
+              count
+              player_id
+            }
+          }
+      - name: updatePlayerRounds
+        query: |
+          mutation UpdateZombiesLeaderBoard ($playerID: String, $rounds: Int) {
+            update_zombies_leader_board(where: {player_id:{_eq:$playerID}}, _set: {rounds:$rounds}) {
+              affected_rows
+            }
+          }
+      - name: getLeaderBoard
+        query: |
+          query GetZombiesLeaderBoard {
+            zombies_leader_board {
+              id
+              username
+              rounds
+              player_id
+            }
+          }

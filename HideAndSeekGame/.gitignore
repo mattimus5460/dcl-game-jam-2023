@@ -1,0 +1,9 @@
+package-lock.json
+node_modules
+bin
+.idea
+*.swp
+*.*~
+export
+.DS_STORE
+

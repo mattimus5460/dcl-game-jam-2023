@@ -1,0 +1,23 @@
+table:
+  name: player_action_log
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        player_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - action_name
+        - player_id
+        - created_at
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - action_name
+        - player_id
+        - created_at
+      filter:
+        player_id:
+          _eq: X-Hasura-User-Id

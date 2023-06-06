@@ -1,0 +1,29 @@
+table:
+  name: xp_action_log
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        player_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - level_type
+        - player_id
+        - level
+        - total_xp
+        - xp_gained
+        - created_at
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - level_type
+        - player_id
+        - level
+        - total_xp
+        - xp_gained
+        - created_at
+      filter:
+        player_id:
+          _eq: X-Hasura-User-Id

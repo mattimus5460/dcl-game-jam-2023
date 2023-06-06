@@ -1,0 +1,29 @@
+table:
+  name: player_avatar_model
+  schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        player_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - active
+        - created_at
+        - model
+        - player_id
+        - updated_at
+        - weight
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - active
+        - created_at
+        - model
+        - player_id
+        - updated_at
+        - weight
+      filter:
+        player_id:
+          _eq: X-Hasura-User-Id

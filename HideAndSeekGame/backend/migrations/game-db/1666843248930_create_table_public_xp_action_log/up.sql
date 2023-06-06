@@ -1,0 +1,1 @@
+CREATE TABLE "public"."xp_action_log" ("player_id" character varying NOT NULL, "level_type" varchar NOT NULL, "xp_gained" int4 NOT NULL, "level" integer NOT NULL, "created_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("player_id","level_type","created_at") );COMMENT ON TABLE "public"."xp_action_log" IS E'table to track user actions';

@@ -1,0 +1,1 @@
+CREATE TABLE "public"."dispense_transaction_log" ("txnHash" varchar NOT NULL, "userAddress" varchar NOT NULL, "name" varchar, "urn" varchar NOT NULL, "itemName" varchar, "status" varchar NOT NULL, "claimDateTime" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("txnHash") );
