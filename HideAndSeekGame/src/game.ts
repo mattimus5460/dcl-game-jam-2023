@@ -161,9 +161,9 @@ function shotgunBox() {
           purchase.playOnce();
           weapon.addGun({
             type: "shotgun",
-            ammo: 10,
+            ammo: 40,
             shape: new GLTFShape("models/Shotgun.glb"),
-            damage: 50,
+            damage: 70,
           });
           setTimeout(3 * 1000, () => {
             clipClose2.play();
@@ -176,7 +176,7 @@ function shotgunBox() {
       },
       {
         hoverText: "1000 points for a shotgun",
-        distance: 5,
+        distance: 2,
       }
     )
   );
@@ -232,14 +232,13 @@ function machinegunBox() {
           clipOpen2.play();
           purchase.playOnce();
           weapon.addGun({
-            type: "Machine gun",
-            ammo: 60,
+            type: "AK - 47",
+            ammo: 100,
             shape: new GLTFShape("models/Rifle.glb"),
             damage: 30,
           });
           setTimeout(3 * 1000, () => {
             clipClose2.play();
-            //give shotgun
           });
           manager.deductPoints(pointsNeeded);
         } else {

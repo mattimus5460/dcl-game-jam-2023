@@ -6,7 +6,7 @@ export class TankZombie extends Entity {
     engine.addEntity(this);
     this.addComponent(model);
     this.addComponent(transform);
-    this.health = 100;
+    this.health = 140;
 
     this.addComponent(new Animator());
     this.getComponent(Animator).addClip(

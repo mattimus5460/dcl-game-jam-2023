@@ -6,7 +6,7 @@ export class FastZombie extends Entity {
     engine.addEntity(this);
     this.addComponent(model);
     this.addComponent(transform);
-    this.health = 100;
+    this.health = 50;
 
     this.addComponent(new Animator());
     this.getComponent(Animator).addClip(

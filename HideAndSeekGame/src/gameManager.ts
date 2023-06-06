@@ -167,6 +167,8 @@ export default class GameManager {
       setTimeout(Math.round(i * 1.5) * 2000, () => {
         log("create zombie for round");
 
+        let moveSpeed = this.moveSpeed; // Default move speed
+
         let zombie;
         if (this.round % 5 === 0) {
           // Every 5 rounds create a strong zombie
@@ -178,9 +180,10 @@ export default class GameManager {
           );
         } else if (this.round % 3 === 0) {
           // Every 3 rounds create a fast zombie
+          moveSpeed = 6;
           zombie = new FastZombie(
             new GLTFShape("models/Zombie.glb"),
-            4,
+            moveSpeed,
             new Transform({
               position: POSITIONS[getRandomInt(POSITIONS.length)]?.clone(),
             })
@@ -207,7 +210,7 @@ export default class GameManager {
         zombie.addComponentOrReplace(attackSound);
 
         const zombieSystem = new ZombieAttack(zombie, this.camera, {
-          moveSpeed: this.moveSpeed,
+          moveSpeed: moveSpeed,
           rotSpeed: this.rotSpeed,
           onAttack: async () => {
             log("attack");
