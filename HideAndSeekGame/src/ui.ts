@@ -1,5 +1,8 @@
 import { setTimeout } from "@dcl/ecs-scene-utils";
 import { canvas } from "@dcl/ui-scene-utils";
+import GameManager from "./gameManager";
+
+const manager = new GameManager();
 
 //dungeon info
 export class StartingInfo {
@@ -60,6 +63,7 @@ export class StartingInfoExit {
     this.card.visible = true;
     setTimeout(10 * 1000, () => {
       this.card.visible = false;
+      manager.createZombiesForRound();
     });
   }
 }

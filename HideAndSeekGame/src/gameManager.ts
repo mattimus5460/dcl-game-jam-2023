@@ -141,9 +141,9 @@ export default class GameManager {
     this.setUpGunShotFail();
 
     this.setUpInputHandler();
-    setTimeout(3 * 1000, () => {
-      this.createZombiesForRound();
-    });
+    // setTimeout(3 * 1000, () => {
+    //   this.createZombiesForRound();
+    // });
   }
 
   increaseHealth(amount) {
@@ -256,9 +256,9 @@ export default class GameManager {
               this.removeAllZombies();
               this.round = 1;
               this.points = 0;
-              this.kills = 0;
+              //this.kills = 0;
               this.counter.set(this.points);
-              this.killCounter.set(this.kills);
+              //this.killCounter.set(this.kills);
               this.createZombiesForRound();
             }
           },
