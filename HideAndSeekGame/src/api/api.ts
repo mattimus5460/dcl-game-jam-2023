@@ -1,5 +1,6 @@
 import { getUserData } from "@decentraland/Identity";
 import { signedFetch } from "@decentraland/SignedFetch";
+import { LEVEL_TYPES } from "src/LevelManager/types";
 
 //const REDEEM_BASE_URL = `http://localhost:3000`;
 const REDEEM_BASE_URL = `https://ipwpq4k3zi.execute-api.us-east-1.amazonaws.com`;
@@ -121,6 +122,12 @@ export const GetPlayerLevels = async () => {
   const { userId } = await getUserData();
 
   return await getData(`/api/rest/level/${userId}`);
+};
+
+export const GetPlayerLevelLeaderboards = async (
+  levelType: LEVEL_TYPES = LEVEL_TYPES.PLAYER
+) => {
+  return await getData(`/api/rest/leaderbaord/levels/${levelType}`);
 };
 
 export const WriteXpToServer = async (
@@ -260,6 +267,10 @@ export const getPlayerRounds = async () => {
   //api/rest/rounds/:playerID
   const { userId } = await getUserData();
   return getData(`/api/rest/rounds/${userId}`);
+};
+
+export const getZombieLeaderboard = async () => {
+  return getData(`/api/rest/rounds`);
 };
 
 export const createPlayerRounds = async (rounds) => {

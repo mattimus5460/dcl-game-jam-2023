@@ -20,9 +20,7 @@ select_permissions:
         - rounds
         - player_id
         - username
-      filter:
-        player_id:
-          _eq: X-Hasura-User-Id
+      filter: {}
 update_permissions:
   - role: user
     permission:
