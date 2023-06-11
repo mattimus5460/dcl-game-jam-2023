@@ -216,7 +216,7 @@ function shotgunBox() {
             damage: 70,
           });
           setTimeout(3 * 1000, () => {
-            clipClose2.play();
+            //clipClose2.play();
             //give shotgun
           });
           manager.deductPoints(1000);
@@ -288,7 +288,7 @@ function machinegunBox() {
             damage: 30,
           });
           setTimeout(3 * 1000, () => {
-            clipClose2.play();
+            //clipClose2.play();
           });
           manager.deductPoints(pointsNeeded);
         } else {

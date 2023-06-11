@@ -4,10 +4,12 @@ import castRay from "./raycast";
 // Configuration
 const MOVE_SPEED = 1;
 const ROT_SPEED = 1;
+const ATTACK_DISTANCE = 4;
 
 interface ZombieAttackConfig {
   moveSpeed?: number;
   rotSpeed?: number;
+  attackDistance?: number;
   onAttack?: () => void;
 }
 
@@ -16,6 +18,7 @@ export class ZombieAttack implements ISystem {
   private transform: Transform;
   private player: Camera;
   private moveSpeed: number;
+  private attackDistance: number;
   private rotSpeed: number;
   private createdAt: Date;
   private onAttack: () => void;
@@ -27,6 +30,7 @@ export class ZombieAttack implements ISystem {
     {
       moveSpeed = MOVE_SPEED,
       rotSpeed = ROT_SPEED,
+      attackDistance = ATTACK_DISTANCE,
       onAttack,
     }: ZombieAttackConfig = {}
   ) {
@@ -35,6 +39,7 @@ export class ZombieAttack implements ISystem {
     this.player = player;
     this.moveSpeed = moveSpeed;
     this.rotSpeed = rotSpeed;
+    this.attackDistance = attackDistance;
     this.onAttack = onAttack;
     this.createdAt = new Date();
     this.refreshTimer = 0;
@@ -75,7 +80,7 @@ export class ZombieAttack implements ISystem {
         this.transform.position,
         this.player.position
       ); // Check distance squared as it's more optimized
-      if (distance >= 4) {
+      if (distance >= this.attackDistance) {
         // Note: Distance is squared so a value of 4 is when the zombie is standing 2m away
         this.zombie.walk();
         const forwardVector = Vector3.Forward().rotate(this.transform.rotation);

@@ -2,7 +2,7 @@ import { setTimeout } from "@dcl/ecs-scene-utils";
 import { canvas } from "@dcl/ui-scene-utils";
 import GameManager from "./gameManager";
 
-const manager = new GameManager();
+//const manager = new GameManager();
 
 //dungeon info
 export class StartingInfo {
@@ -29,7 +29,7 @@ export class StartingInfo {
 
   public show() {
     this.card.visible = true;
-    setTimeout(10 * 1000, () => {
+    setTimeout(5 * 1000, () => {
       this.card.visible = false;
     });
   }
@@ -61,9 +61,9 @@ export class StartingInfoExit {
 
   public show() {
     this.card.visible = true;
-    setTimeout(10 * 1000, () => {
+    setTimeout(5 * 1000, () => {
       this.card.visible = false;
-      manager.createZombiesForRound();
+      //manager.createZombiesForRound();
     });
   }
 }
