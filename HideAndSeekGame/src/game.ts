@@ -207,7 +207,7 @@ function shotgunBox() {
       (e) => {
         const points = manager.getPoints();
         if (points >= 1000) {
-          clipOpen2.play();
+          //clipOpen2.play();
           purchase.playOnce();
           weapon.addGun({
             type: "shotgun",
@@ -279,7 +279,7 @@ function machinegunBox() {
         const points = manager.getPoints();
         const pointsNeeded = 1000;
         if (points >= pointsNeeded) {
-          clipOpen2.play();
+          //clipOpen2.play();
           purchase.playOnce();
           weapon.addGun({
             type: "AK - 47",
@@ -698,6 +698,7 @@ export class StartingInfoExit {
       //setTimeout(1 * 1000, () => {
       //this.card.visible = false;
       manager.createZombiesForRound();
+      //player.inventory.incrementItem(ITEM_TYPES.ICEHEART, 1);
     });
     //});
   }

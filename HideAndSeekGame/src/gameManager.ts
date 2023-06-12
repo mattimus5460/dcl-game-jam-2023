@@ -319,7 +319,7 @@ export default class GameManager {
         let distance = this.distance;
 
         let zombie;
-        if (this.round % 10 === 0 && !isBigBossZombieCreatedInThisIteration) {
+        if (this.round % 5 === 0 && !isBigBossZombieCreatedInThisIteration) {
           // BigBossZombie
           moveSpeed = 2;
           attack = 0.3;
@@ -344,7 +344,7 @@ export default class GameManager {
               position: POSITIONS[getRandomInt(POSITIONS.length)]?.clone(),
             })
           );
-        } else if (this.round % 5 === 0) {
+        } else if (this.round % 6 === 0) {
           // TankZombie
           zombie = new TankZombie(
             new GLTFShape("models/Zombie.glb"),
