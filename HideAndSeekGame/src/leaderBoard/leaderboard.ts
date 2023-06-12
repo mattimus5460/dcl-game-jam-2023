@@ -24,7 +24,7 @@ async function updateBoard() {
   const scoreData: any = await getZombieLeaderboard(); // data.scoreBoard
 
   const data = [...scoreData.zombies_leader_board];
-  log("RETURNRED RAW LEADER BOARD", data);
+  //log("RETURNRED RAW LEADER BOARD", data);
   // sorting
   data.sort((a, b) => b.rounds - a.rounds);
   let topTen = data.slice(0, 10);

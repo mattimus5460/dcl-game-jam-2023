@@ -19,6 +19,8 @@ import {
 import { FastZombie } from "./zombies/fastZombie";
 import { TankZombie } from "./zombies/tankZombie";
 import { BigBossZombie } from "./zombies/bigBossZombie";
+import { ITEM_TYPES } from "./inventory/playerInventoryMap";
+import { player } from "./inventory/player";
 
 const DELETE_TIME = 8; // In seconds
 // Score
@@ -299,6 +301,11 @@ export default class GameManager {
       highestRoundCounterLabel.value = `Highest Round: ${response.zombies_leader_board[0].rounds}`;
     }
 
+    if (this.round % 10 === 0) {
+      player.inventory.incrementItem(ITEM_TYPES.ICEHEART, 1);
+      //log("add hearts!");
+    }
+
     this.finishedRendering = false;
     let count = 0;
     let target = Math.round(this.round * 1.2);
@@ -318,6 +325,7 @@ export default class GameManager {
           attack = 0.3;
           distance = 14;
           let health = this.round * 50.2;
+
           zombie = new BigBossZombie(
             new GLTFShape("models/Oligar.glb"),
             health,

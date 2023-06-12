@@ -3,8 +3,11 @@ import GameManager, { weapon } from "./gameManager";
 import * as ui from "@dcl/ui-scene-utils";
 import { canvas } from "@dcl/ui-scene-utils";
 import * as utils from "@dcl/ecs-scene-utils";
+import { Player, player } from "./inventory/player";
+import { ITEM_TYPES } from "./inventory/playerInventoryMap";
 
 const manager = new GameManager();
+//const player = new Player();
 
 export function SpawnItem(
   model: GLTFShape,
@@ -660,18 +663,10 @@ export class StartingHeader {
     this.card.vAlign = "center";
     this.card.visible = false;
     this.card.isPointerBlocker = true;
-    // this.card.onClick = new OnPointerDown(() => {
-    //   startingInfo.hide();
-    //   this.card.visible = false;
-    // });
   }
 
   public show() {
     this.card.visible = true;
-    // setTimeout(5 * 1000, () => {
-    //   this.card.visible = false;
-    //   //manager.createZombiesForRound();
-    // });
   }
 
   public hide() {

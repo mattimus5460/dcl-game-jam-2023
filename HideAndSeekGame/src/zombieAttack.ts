@@ -47,7 +47,7 @@ export class ZombieAttack implements ISystem {
 
   async update(dt: number) {
     if (this.refreshTimer > 0) {
-      log(this.refreshTimer);
+      //log(this.refreshTimer);
       this.refreshTimer -= dt;
     }
     // Rotate to face the player
