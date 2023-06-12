@@ -144,9 +144,9 @@ export default class GameManager {
     this.setUpGunShotFail();
 
     this.setUpInputHandler();
-    setTimeout(5 * 1000, () => {
-      this.createZombiesForRound();
-    });
+    // setTimeout(5 * 1000, () => {
+    //   this.createZombiesForRound();
+    // });
   }
 
   increaseHealth(amount) {
@@ -287,7 +287,7 @@ export default class GameManager {
 
   async createZombiesForRound() {
     const response = await getPlayerRounds();
-    ui.displayAnnouncement(`Round ${this.round}`);
+    ui.displayAnnouncement(`Round ${this.round}`, 5, Color4.Red());
     roundCounterLabel.value = `Round: ${this.round}`;
 
     if (
