@@ -9,6 +9,20 @@ import { ITEM_TYPES } from "./inventory/playerInventoryMap";
 const manager = new GameManager();
 //const player = new Player();
 
+const areaToHide = new Entity();
+areaToHide.addComponent(
+  new AvatarModifierArea({
+    area: { box: new Vector3(32, 6, 32) },
+    modifiers: [AvatarModifiers.DISABLE_PASSPORTS],
+  })
+);
+areaToHide.addComponent(
+  new Transform({
+    position: new Vector3(16, 3, 16),
+  })
+);
+engine.addEntity(areaToHide);
+
 export function SpawnItem(
   model: GLTFShape,
   transform: Transform,
