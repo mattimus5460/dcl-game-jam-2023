@@ -156,137 +156,6 @@ export default class GameManager {
     // Assuming that the health bar is updated elsewhere in your code
   }
 
-  // async createZombiesForRound() {
-  //   const response = await getPlayerRounds();
-  //   ui.displayAnnouncement(`Round ${this.round}`);
-  //   roundCounterLabel.value = `Round: ${this.round}`;
-  //   if (
-  //     response.zombies_leader_board &&
-  //     response.zombies_leader_board.length === 0
-  //   ) {
-  //     highestRoundCounterLabel.value = `Highest Round: 1`;
-  //   } else {
-  //     highestRoundCounterLabel.value = `Highest Round: ${response.zombies_leader_board[0].rounds}`;
-  //   }
-
-  //   //let roundLabel = new ui.CornerLabel(`Round: ${this.round}`, -120, 530);
-  //   this.finishedRendering = false;
-  //   let count = 0;
-  //   let target = Math.round(this.round * 1.2);
-  //   for (let i = 1; i <= target; i++) {
-  //     setTimeout(Math.round(i * 1.5) * 2000, () => {
-  //       log("create zombie for round");
-
-  //       let moveSpeed = this.moveSpeed; // Default move speed
-  //       let attack = this.attack;
-
-  //       let zombie;
-  //       if (this.round % 5 === 0) {
-  //         // Every 5 rounds create a strong zombie
-  //         zombie = new TankZombie(
-  //           new GLTFShape("models/Zombie.glb"),
-  //           new Transform({
-  //             position: POSITIONS[getRandomInt(POSITIONS.length)]?.clone(),
-  //           })
-  //         );
-  //       } else if (this.round % 3 === 0) {
-  //         // Every 3 rounds create a fast zombie
-  //         moveSpeed = 6;
-  //         zombie = new FastZombie(
-  //           new GLTFShape("models/Zombie.glb"),
-  //           moveSpeed,
-  //           new Transform({
-  //             position: POSITIONS[getRandomInt(POSITIONS.length)]?.clone(),
-  //           })
-  //         );
-  //       } else if (this.round % 10 === 0) {
-  //         // Every 10 rounds create a BOSS zombie
-  //         moveSpeed = 2;
-  //         attack = 0.2;
-  //         zombie = new BigBossZombie(
-  //           new GLTFShape("models/Zombie.glb"),
-  //           moveSpeed,
-  //           new Transform({
-  //             position: POSITIONS[getRandomInt(POSITIONS.length)]?.clone(),
-  //           })
-  //         );
-  //       } else {
-  //         zombie = new Zombie(
-  //           new GLTFShape("models/Zombie.glb"),
-  //           new Transform({
-  //             position: POSITIONS[getRandomInt(POSITIONS.length)]?.clone(),
-  //           })
-  //         );
-  //       }
-
-  //       //zombie sounds
-  //       let clip2 = new AudioClip("sounds/attack.mp3");
-  //       let attackSound = new AudioSource(clip2);
-  //       zombie.addComponentOrReplace(attackSound);
-
-  //       const zombieSystem = new ZombieAttack(zombie, this.camera, {
-  //         moveSpeed: moveSpeed,
-  //         rotSpeed: this.rotSpeed,
-  //         onAttack: async () => {
-  //           log("attack");
-  //           attackSound.playOnce();
-  //           this.healthBar.decrease(attack);
-  //           if (this.healthBar.read() <= 0) {
-  //             ui.displayAnnouncement("GAME OVER!", 5, Color4.Red(), 50);
-  //             // get th current round and compaare with db rounds by player & save again just in case//
-  //             log("GEt Player Rouds>>>>", response);
-
-  //             if (
-  //               response.zombies_leader_board &&
-  //               response.zombies_leader_board.length === 0
-  //             ) {
-  //               // create new entries for player
-
-  //               const resopnse2 = await createPlayerRounds(this.round);
-  //             } else {
-  //               // update
-
-  //               //{"zombies_leader_board":[{"rounds":1}]}
-  //               log(
-  //                 "player rounds>>>",
-  //                 response.zombies_leader_board[0].rounds
-  //               );
-
-  //               if (this.round > response.zombies_leader_board[0].rounds) {
-  //                 const response3 = await updatePlayerRounds(this.round);
-  //                 highestRoundCounterLabel.value = `Highest Round: ${response.zombies_leader_board[0].rounds}`;
-
-  //                 log("rounds updateD", response3);
-  //               }
-  //             }
-  //             log("current Player Rounds>>>", this.round);
-
-  //             movePlayerTo({ x: 22.51, y: 0, z: 13.92 });
-  //             this.healthBar.set(1);
-  //             this.removeAllZombies();
-  //             this.round = 1;
-  //             this.points = 0;
-  //             //this.kills = 0;
-  //             this.counter.set(this.points);
-  //             //this.killCounter.set(this.kills);
-  //             this.createZombiesForRound();
-  //           }
-  //         },
-  //       });
-
-  //       engine.addSystem(zombieSystem);
-  //       this.zombieSystem[zombie.uuid] = zombieSystem;
-
-  //       this.zombies.push(zombie);
-  //       count++;
-
-  //       if (count === target) {
-  //         this.finishedRendering = true;
-  //       }
-  //     });
-  //   }
-  // }
-
   async createZombiesForRound() {
     const response = await getPlayerRounds();
     ui.displayAnnouncement(`Round ${this.round}`, 5, Color4.Red());
@@ -310,9 +179,17 @@ export default class GameManager {
     let count = 0;
     let target = Math.round(this.round * 1.2);
     let isBigBossZombieCreatedInThisIteration = false;
+
     for (let i = 1; i <= target; i++) {
       setTimeout(Math.round(i * 1.5) * 2000, () => {
         log("create zombie for round");
+
+        setTimeout(200 * 1000, () => {
+          if (engine.entities[zombie.uuid]) {
+            this.removeZombie(zombie);
+            this.createZombiesForRound();
+          }
+        });
 
         let moveSpeed = this.moveSpeed;
         let attack = this.attack;
