@@ -9,3 +9,4 @@
   ],
   "extends": "@dcl/sdk/types/tsconfig.ecs7.json"
 }
+

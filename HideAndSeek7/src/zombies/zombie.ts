@@ -6,10 +6,13 @@ import {
     GltfContainer,
     InputAction,
     pointerEventsSystem,
+    removeEntityWithChildren,
     Schemas,
+    TextShape,
     Transform,
     TransformType
 } from "@dcl/sdk/ecs";
+import {activeZombies, connectedRoom} from "../colyseus/gameplay";
 
 
 export class Character {
@@ -65,11 +68,17 @@ export const ZombieC = engine.defineComponent("Zombie", {
 
 export class Zombie extends Character {
     health: number;
+    serverId: string;
 
-    constructor(transform: TransformType) {
+    constructor(transform: TransformType, serverId: string) {
         super('models/zombie.glb', transform);
         this.health = 100
+        this.serverId = serverId
         ZombieC.create(this.entity)
+
+        TextShape.create(this.entity,{
+            text: ''+this.health
+        })
 
 
         pointerEventsSystem.onPointerDown(
@@ -80,10 +89,17 @@ export class Zombie extends Character {
             function (cmd) {
                 console.log('clicked', cmd.hit)
 
+                connectedRoom.send("damage-enemy", serverId)
+
             }
         )
 
 
+    }
+
+    damage(damage: number) {
+        this.health -= damage;
+        TextShape.getMutable(this.entity).text = ''+this.health
     }
 
     attack() {
@@ -92,6 +108,20 @@ export class Zombie extends Character {
 
     hit(damage: number) {
         this.health -= damage;
+
+        console.log(this.health)
+        if(this.health <= 0){
+
+            console.log("die")
+            this.die()
+        }
+    }
+
+    die(){
+        console.log("zombie died")
+        removeEntityWithChildren(engine, this.entity)
+        engine.removeEntity(this.entity)
+        activeZombies.delete(this.serverId)
     }
 
     // Play walking animation

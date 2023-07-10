@@ -12,10 +12,8 @@ healthLabel.show()
 const healthBar = ui.createComponent(ui.UIBar, {value: 1, style: BarStyles.ROUNDSILVER})
 healthBar.show()
 
-
 const ammoLabel = ui.createComponent(ui.CornerLabel, {value: 'Ammo', xOffset: -190})
 ammoLabel.show()
-
 
 const ammoBar = ui.createComponent(ui.UIBar, {value: 1, color: Color4.Blue(), style: BarStyles.ROUNDGOLD})
 ammoBar.show()
@@ -104,15 +102,7 @@ const uiComponent = () => (
                         variant='primary'
                         fontSize={14}
                         onMouseDown={() => {
-                            const z1 = new Zombie({
-                                position: {
-                                    x: utils.remap(Math.random(), 0, 1, minX, maxX),
-                                    y: 0,
-                                    z: utils.remap(Math.random(), 0, 1, minZ, maxZ)
-                                },
-                                rotation: {w: 0, x: 0, y: 0, z: 0},
-                                scale: {x: 1, y: 1, z: 1}
-                            })
+
                         }}
                     />
                 </UiEntity>
@@ -149,11 +139,7 @@ const uiComponent = () => (
                 variant='primary'
                 fontSize={14}
                 onMouseDown={() => {
-                    const z1 = new Zombie({
-                        position: {x: 19, y: 0, z: 14},
-                        rotation: {w: 0, x: 0, y: 0, z: 0},
-                        scale: {x: 1, y: 1, z: 1}
-                    })
+
                 }}
             />
 

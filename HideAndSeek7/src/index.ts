@@ -5,15 +5,21 @@ import {bounceScalingSystem, circularSystem, spawnerSystem} from './systems'
 import {setupUi} from './ui'
 import {followSystem} from "./systems/followSystem";
 import {ShootingSystem} from "./systems/shootingSystem";
+import {initGamePlay} from "./colyseus/gameplay";
 
 // Defining behavior. See `src/systems.ts` file.
 engine.addSystem(circularSystem)
 engine.addSystem(spawnerSystem)
 engine.addSystem(bounceScalingSystem)
 
+export * from '@dcl/sdk'
+
+import './polyfill/delcares'
+
 export function main() {
     setupUi()
 
+    initGamePlay()
 
 
     const myAvatar = engine.addEntity()
@@ -32,17 +38,17 @@ export function main() {
         position: Vector3.create(12, 0.25, 12)
     })
 
-
-    const zombiehouse = engine.addEntity()
-    Transform.create(zombiehouse, {
-        position: Vector3.create(8, 0.01, 13.2),
-        scale: Vector3.create(1, 1, 1),
-    });
-    GltfContainer.create(zombiehouse, {
-            src: "models/Zombiehouse.glb",
-            invisibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS,
-        }
-    )
+    //
+    // const zombiehouse = engine.addEntity()
+    // Transform.create(zombiehouse, {
+    //     position: Vector3.create(8, 0.01, 13.2),
+    //     scale: Vector3.create(1, 1, 1),
+    // });
+    // GltfContainer.create(zombiehouse, {
+    //         src: "models/Zombiehouse.glb",
+    //         invisibleMeshesCollisionMask: ColliderLayer.CL_PHYSICS,
+    //     }
+    // )
 
 
 
