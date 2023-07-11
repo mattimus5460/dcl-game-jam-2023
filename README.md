@@ -10,17 +10,18 @@ https://play.decentraland.org/?realm=mattm.dcl.eth
 
 ## How to play
 
-#### Objective
+**Objective**
 
-Team up with your friends.
-Start the game with an initial energy reserve for each player.
-Work together to eliminate the ghost enemy.
-Collect energy from defeating the ghost.
-Utilize the collected energy to power up the dream beacons.
-Protect the bed beacon from reaching a power level of 0.
-If the bed beacon's power reaches 0, the nightmare takes over.
-Power up all the dream beacons to bring an end to the nightmare.
-Players can contribute or withdraw energy from the beacons to destroy enemies.
+- Team up with your friends.
+- Start the game with an initial energy reserve for each player.
+- Work together to eliminate the ghost enemy.
+- Collect energy from defeating the ghost.
+- Utilize the collected energy to power up the dream beacons.
+- Protect the bed beacon from reaching a power level of 0.
+- If the bed beacon's power reaches 0, the nightmare takes over.
+- Power up all the dream beacons to bring an end to the nightmare.
+- Players can contribute or withdraw energy from the beacons to destroy enemies.
+
 Keep an eye out for additional energy boosts scattered around the map to replenish your energy reserves.
 Remember, teamwork and coordination are essential to achieve success in this thrilling game. Good luck!
 
