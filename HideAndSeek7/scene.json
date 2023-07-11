@@ -48,5 +48,8 @@
     "ALLOW_TO_TRIGGER_AVATAR_EMOTE",
     "ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE"
   ],
-  "featureToggles": {}
+  "featureToggles": {},
+  "worldConfiguration": {
+    "name": "MattM.dcl.eth"
+  }
 }
