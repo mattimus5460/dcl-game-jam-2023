@@ -16,12 +16,12 @@ Our game presents a dreamy universe teetering on the brink of a nightmare, where
 Skybox for each level generated using [Blockade Labs Skybox AI Tool](https://skybox.blockadelabs.com/)
 
 - Dream Realm [skybox]([https://skybox.blockadelabs.com/c969b36096aa7556ec4c58293257422e](https://skybox.blockadelabs.com/c2b62fcce0d6243c03dc9802f9310669))
-  ![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/7bc18376-df25-4fba-9da8-71e59257ce0e)
-
+  ![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/77786872-e8ef-4283-a99f-14339424d648)
 
 
 - Nightmare Realm [skybox]([https://skybox.blockadelabs.com/c969b36096aa7556ec4c58293257422e](https://skybox.blockadelabs.com/c2b62fcce0d6243c03dc9802f9310669))
-  ![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/7bc18376-df25-4fba-9da8-71e59257ce0e)
+  ![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/d35522c2-6084-413b-b144-5a386bbfcfcf)
+
 
 
 #### ChatGPT
