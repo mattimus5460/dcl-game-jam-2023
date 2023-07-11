@@ -1,5 +1,5 @@
 import {Client, Room} from "colyseus";
-import {Beacon, Enemy, EnergyCrystal, GameRoomState, Player, Position} from "./GameRoomState";
+import {Enemy, EnergyCrystal, GameRoomState, Player, Position} from "./GameRoomState";
 import {ArraySchema} from "@colyseus/schema";
 
 const ROUND_DURATION = 60 * 3;
@@ -73,7 +73,7 @@ export class GameRoom extends Room<GameRoomState> {
 
         this.onMessage("add-energy", (client: Client, beaconId: number) => {
             //this.broadcast("add-energy", beaconId);
-            this.state.beaconHealths[beaconId] += 10;
+            this.state.beaconHealths[beaconId] += 1;
 
             if (!this.isFinished && this.state.beaconHealths.filter(health => health < 100).length === 0) {
                 this.broadcast("game-win");
@@ -88,7 +88,7 @@ export class GameRoom extends Room<GameRoomState> {
         });
 
         this.onMessage("collect-energy-crystal", (client: Client, crystalId: number) => {
-            console.log("collect-energy", this.state.crystals.length, crystalId);
+            //console.log("collect-energy", this.state.crystals.length, crystalId);
             this.state.crystals[crystalId].isCollected = true
             this.broadcast("collect-energy-crystal", crystalId);
 
@@ -109,11 +109,11 @@ export class GameRoom extends Room<GameRoomState> {
 
     spawnEnergyCrystals() {
         ENERGY_POSITIONS.forEach((position, i) => {
-            this.createEnergyCrystal(new Position().assign({
-                x: position.x,
-                y: position.y,
-                z: position.z,
-            }), i);
+            this.createEnergyCrystal(new Position(
+                position.x,
+                position.y,
+                position.z,
+            ), i);
         })
     }
 
@@ -148,18 +148,17 @@ export class GameRoom extends Room<GameRoomState> {
 
         this.spawnInterval =
             setInterval(() => {
-                if(this.isFinished) return
+                if (this.isFinished) return
 
                 SPAWN_POSITIONS.forEach((position) => {
 
                     if (this.state.enemies.length < MAX_ENEMIES) {
                         this.createEnemy(
                             this.enemiesCount.toString(),
-                            new Position().assign({
-                                x: position.x,
-                                y: position.y,
-                                z: position.z,
-                            }));
+                            new Position(position.x,
+                                position.y,
+                                position.z,
+                            ));
                     }
                 })
             }, SPAWN_FREQUENCY)
@@ -191,17 +190,13 @@ export class GameRoom extends Room<GameRoomState> {
     }
 
     createEnemy(entityId: string, atPosition: Position) {
-        const enemy = new Enemy();
-        enemy.entityId = entityId;
-        enemy.position = atPosition;
+        const enemy = new Enemy(atPosition, entityId);
         this.state.enemies.push(enemy);
         this.enemiesCount++;
     }
 
     createEnergyCrystal(atPosition: Position, index: number = 0) {
-        const energyCrystal = new EnergyCrystal();
-        energyCrystal.position = atPosition;
-        energyCrystal.index = index;
+        const energyCrystal = new EnergyCrystal(atPosition, index);
         this.state.crystals[index] = energyCrystal
 
         this.broadcast("create-energy-crystal", energyCrystal)
@@ -209,11 +204,10 @@ export class GameRoom extends Room<GameRoomState> {
 
 
     onJoin(client: Client, options: any) {
-        const newPlayer = new Player().assign({
-            name: options.userData.displayName || "Anonymous",
-            ranking: 0,
-            points: 0,
-        });
+        const newPlayer = new Player(options.userData.displayName || "Anonymous",
+            0,
+            0
+        );
         this.state.players.set(client.sessionId, newPlayer);
 
         console.log(this.roomId, this.roomName, newPlayer.name, "joined! => ", options.userData);
