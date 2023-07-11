@@ -4,6 +4,9 @@ Welcome to Nightmares End, a blockchain-based immersive game developed for the D
 
 Our game presents a dreamy universe teetering on the brink of a nightmare, where your mission is to restore balance and harmony. Your weapon? The Dream Scepter. Your target? Ghosts representing the core of the nightmares.
 
+#### Play HERE
+https://play.decentraland.org/?realm=mattm.dcl.eth
+
 #### The Nightmare
 
 ![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/c0196f34-ec9e-40cd-a9a8-e20232ebc362)
