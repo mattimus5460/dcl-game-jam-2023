@@ -6,10 +6,14 @@ Our game presents a dreamy universe teetering on the brink of a nightmare, where
 
 #### The Nightmare
 
-![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/27fc2164-f4f0-4935-8936-4cdc4ae9f4b6)
+![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/c0196f34-ec9e-40cd-a9a8-e20232ebc362)
 
 
 ## How we used AI
+
+#### ChatGPT
+
+- NPC dialog and storyline from [ChatGPT](https://chat.openai.com/)
 
 #### Blockade Labs Skybox AI Tool
 
@@ -23,10 +27,6 @@ Skybox for each level generated using [Blockade Labs Skybox AI Tool](https://sky
   ![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/d35522c2-6084-413b-b144-5a386bbfcfcf)
 
 
-
-#### ChatGPT
-
-- NPC dialog and storyline from [ChatGPT](https://chat.openai.com/)
 
 ## Copyright info
 
