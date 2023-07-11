@@ -4,14 +4,13 @@ import cors from "cors";
 import express from "express";
 import basicAuth from "express-basic-auth";
 import path from "path";
-import config from "@colyseus/tools";
 
 /**
  * Import your Room files
  */
 import {GameRoom} from "./rooms/GameRoom";
 
-export default config({
+export default Arena({
     getId: () => "Your Colyseus App",
 
     initializeGameServer: (gameServer) => {
