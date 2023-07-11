@@ -1,1 +1,0 @@
-CREATE TABLE "public"."player_logs" ("timestamp" text, "player_Id" text, "id" serial NOT NULL, PRIMARY KEY ("id") , UNIQUE ("id"));COMMENT ON TABLE "public"."player_logs" IS E'table to logs the player landed time';

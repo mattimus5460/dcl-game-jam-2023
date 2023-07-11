@@ -1,3 +1,0 @@
-function:
-  name: get_player_full_quest_completed_count
-  schema: public

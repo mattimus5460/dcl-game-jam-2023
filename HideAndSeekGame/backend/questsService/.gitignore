@@ -1,5 +1,0 @@
-sam-template.packaged.yaml
-.aws-sam/
-dist/
-/node_modules
-.env
