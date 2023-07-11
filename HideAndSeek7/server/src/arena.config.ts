@@ -1,5 +1,6 @@
 import Arena from "@colyseus/arena";
 import { monitor } from "@colyseus/monitor";
+import cors from "cors";
 import express from "express";
 import basicAuth from "express-basic-auth";
 import path from "path";
@@ -24,6 +25,7 @@ export default Arena({
 
     initializeExpress: (app) => {
         app.use(express.static(path.join(__dirname, "static")));
+        app.use(cors())
 
         const basicAuthMiddleware = basicAuth({
             // list of users and passwords
