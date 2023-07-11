@@ -6,12 +6,12 @@
 import { Color4 } from "@dcl/sdk/math";
 import { Client, Room } from "colyseus.js";
 import { log } from "../back-ports/backPorts";
-import { getUserData } from "~system/UserIdentity"
+import {getUserData, GetUserDataResponse} from "~system/UserIdentity"
 import { getRealm } from "~system/Runtime"
 //import { isPreviewMode, getCurrentRealm } from '@decentraland/EnvironmentAPI'
 //import { getUserData } from "@decentraland/Identity";
 
-
+export let userData : GetUserDataResponse
 
 export async function connect(roomName: string, options: any = {}) {
 
@@ -25,6 +25,8 @@ export async function connect(roomName: string, options: any = {}) {
     //
     options.realm = realm?.realmInfo?.realmName;
     options.userData = await getUserData({});
+
+    userData = options.userData
 
     log("userData:", options.userData);
 

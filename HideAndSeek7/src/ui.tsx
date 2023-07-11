@@ -9,165 +9,161 @@ import * as utils from "@dcl-sdk/utils"
 const healthLabel = ui.createComponent(ui.CornerLabel, {value: 'Health', xOffset: -190})
 healthLabel.show()
 
-const healthBar = ui.createComponent(ui.UIBar, {value: 1, style: BarStyles.ROUNDSILVER})
+export const healthBar = ui.createComponent(ui.UIBar, {value: 1, style: BarStyles.ROUNDSILVER})
 healthBar.show()
 
-const ammoLabel = ui.createComponent(ui.CornerLabel, {value: 'Ammo', xOffset: -190})
+const ammoLabel = ui.createComponent(ui.CornerLabel, {value: 'Energy', xOffset: -190})
 ammoLabel.show()
 
-const ammoBar = ui.createComponent(ui.UIBar, {value: 1, color: Color4.Blue(), style: BarStyles.ROUNDGOLD})
+export const ammoBar = ui.createComponent(ui.UIBar, {value: 1, color: Color4.Blue(), style: BarStyles.ROUNDGOLD})
 ammoBar.show()
 
+let zombiesForRound = 0
+export const setZombiesForRound = (value: number) => {
+    zombiesForRound = value
+}
 
-const minX = 12
-const maxX = 19
+export const increaseZombiesForRound = (value: number) => {
+    zombiesForRound += value
+}
 
-const minZ = 12
-const maxZ = 19
+let countdown = 0
+
+export const setCountdown = (value: number) => {
+    countdown = value
+}
+
+const baseHealthLabel = ui.createComponent(ui.CornerLabel, {value: 'Bed Energy', xOffset: -190})
+baseHealthLabel.show()
+
+export const baseHealthBar = ui.createComponent(ui.UIBar, {value: 1, color: Color4.Green(), style: BarStyles.ROUNDGOLD})
+baseHealthBar.show()
+
+const base1HealthLabel = ui.createComponent(ui.CornerLabel, {value: 'Beacon 1 Energy', xOffset: -190})
+base1HealthLabel.show()
+
+export const base1HealthBar = ui.createComponent(ui.UIBar, {value: 0, color: Color4.Green(), style: BarStyles.ROUNDGOLD})
+base1HealthBar.show()
+
+const base2HealthLabel = ui.createComponent(ui.CornerLabel, {value: 'Beacon 2 Energy', xOffset: -190})
+base2HealthLabel.show()
+
+export const base2HealthBar = ui.createComponent(ui.UIBar, {value: 0, color: Color4.Green(), style: BarStyles.ROUNDGOLD})
+base2HealthBar.show()
+
+const base3HealthLabel = ui.createComponent(ui.CornerLabel, {value: 'Beacon 3 Energy', xOffset: -190})
+base3HealthLabel.show()
+
+export const base3HealthBar = ui.createComponent(ui.UIBar, {value: 0, color: Color4.Green(), style: BarStyles.ROUNDGOLD})
+base3HealthBar.show()
+
 const uiComponent = () => (
     <UiEntity
         uiTransform={{
-            width: '300px',
+            width: '400px',
             height: '100%',
             positionType: "absolute",
-            position: {right: 10}
+            position: {right: 10},
+            justifyContent: 'center',
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row"
         }}
     >
+
         <UiEntity
             uiTransform={{
-                width: 400,
-                maxHeight: 160,
-                positionType: 'absolute',
-                position: {top: 20, right: 150},
-                //margin: '16px 0 8px 270px',
-                // { top: 4, bottom: 4, left: 4, right: 4 },
-                //alignSelf:'flex-end',
-                padding: 4,
+                width: '400px',
+                height: '700px',
             }}
-            uiBackground={{color: Color4.create(0.1, 0.1, 0.1, 0.91)}}
         >
-            <UiEntity
-                uiTransform={{
-                    width: '100%',
-                    height: '100%',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'space-between'
-                }}
-                uiBackground={{color: Color4.fromHexString("#343434")}}
-            >
-                <UiEntity
-                    uiTransform={{
-                        width: '100%',
-                        height: 50,
-                        margin: '8px 0'
-                    }}
-                    uiBackground={{
-                        textureMode: 'stretch',
-                        texture: {
-                            src: 'images/Hide_seek.png',
-                        },
-                    }}
-                    uiText={{value: '', fontSize: 18}}
-                />
-                <UiEntity
-                    uiTransform={{
-                        width: '100%',
-                        height: '100%',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                    }}
-                    uiBackground={{color: Color4.fromHexString("#343434")}}
-                >
-                    <Label
-                        onMouseDown={() => {
-                            console.log('Player Position clicked !')
-                        }}
-                        value={`Player: ${getPlayerPosition()}`}
-                        fontSize={18}
-                        uiTransform={{width: '100%', height: 30}}
-                    />
-                    <Label
-                        onMouseDown={() => {
-                            console.log('# Cubes clicked !')
-                        }}
-                        value={`# Zombies: ${[...engine.getEntitiesWith(ZombieC)].length}`}
-                        fontSize={18}
-                        uiTransform={{width: '100%', height: 30}}
-                    />
-                    <Button
-                        uiTransform={{width: 100, height: 40, margin: 8}}
-                        value='Spawn Zombie'
-                        variant='primary'
-                        fontSize={14}
-                        onMouseDown={() => {
+            {/*<UiEntity*/}
+            {/*    uiTransform={{*/}
+            {/*        width: '100%',*/}
+            {/*        height: 100,*/}
+            {/*        margin: '8px 0'*/}
+            {/*    }}*/}
+            {/*    uiBackground={{*/}
+            {/*        textureMode: 'stretch',*/}
+            {/*        texture: {*/}
+            {/*            src: 'images/Hide_seek.png',*/}
+            {/*        },*/}
+            {/*    }}*/}
+            {/*    uiText={{value: '', fontSize: 18}}*/}
+            {/*/>*/}
 
-                        }}
-                    />
+            <UiEntity
+                uiTransform={{width: '400px', height:'600px', display: "flex", flexDirection: "column"}}>
+
+                <UiEntity
+                    uiTransform={{width: '100%', height: 60}}>
+                    {baseHealthLabel.render()}
+                    {baseHealthBar.render()}
                 </UiEntity>
-            </UiEntity>
 
-        </UiEntity>
-        <UiEntity
-            uiTransform={{
-                alignSelf: 'center',
-                width: '100%',
-                height: '500px',
-                flexDirection: 'column',
-                justifyContent: 'center'
-            }}
-            uiBackground={{color: Color4.fromHexString("#343434")}}
-        >
-            <UiEntity
-                uiTransform={{
-                    width: '100%',
-                    height: 100,
-                    margin: '8px 0'
-                }}
-                uiBackground={{
-                    textureMode: 'stretch',
-                    texture: {
-                        src: 'images/Hide_seek.png',
-                    },
-                }}
-                uiText={{value: '', fontSize: 18}}
-            />
-            <Button
-                uiTransform={{width: 100, height: 60, margin: 8, padding: 4}}
-                value='Spawn Zombie'
-                variant='primary'
-                fontSize={14}
-                onMouseDown={() => {
+                <UiEntity
+                    uiTransform={{width: '100%', height: 60}}>
+                    {base1HealthLabel.render()}
+                    {base1HealthBar.render()}
+                </UiEntity>
 
-                }}
-            />
+                <UiEntity
+                    uiTransform={{width: '100%', height: 60}}>
+                    {base2HealthLabel.render()}
+                    {base2HealthBar.render()}
+                </UiEntity>
 
-            <UiEntity
-                uiTransform={{width: '100%'}}>
+                <UiEntity
+                    uiTransform={{width: '100%', height: 60}}>
+                    {base3HealthLabel.render()}
+                    {base3HealthBar.render()}
+                </UiEntity>
+
+
+                <UiEntity
+                    uiTransform={{width: '100%', height: 60}}>
+                    {ammoLabel.render()}
+                    {ammoBar.render()}
+                </UiEntity>
+                <UiEntity
+                    uiTransform={{width: '100%', height: 60}}>
+                    {healthLabel.render()}
+                    {healthBar.render()}
+                </UiEntity>
+
+
                 <Label
                     onMouseDown={() => {
-                        console.log('# Level clicked !')
+                        console.log('Player Position clicked !')
+                    }}
+                    value={`Time Left: ${countdown}`}
+                    fontSize={18}
+                    uiTransform={{width: '100%', height: 30, margin: {top: 10}}}
+                />
+
+                <Label
+                    onMouseDown={() => {
                     }}
                     value={`Zombies: ${[...engine.getEntitiesWith(ZombieC)].length}`}
                     fontSize={18}
-                    uiTransform={{width: '100%', height: 50}}
+                    uiTransform={{width: '100%', height: 30, margin: {top: 10}}}
                 />
-            </UiEntity>
 
-            <UiEntity
-                uiTransform={{width: '100%', height: 1000,}}>
-                {ammoLabel.render()}
-                {ammoBar.render()}
-            </UiEntity>
-            <UiEntity
-                uiTransform={{width: '100%', height: 100}}>
-                {healthLabel.render()}
-                {healthBar.render()}
+                <Label
+                    onMouseDown={() => {
+                    }}
+                    value={`Total Zombies: ${zombiesForRound}`}
+                    fontSize={18}
+                    uiTransform={{width: '100%', height: 30, margin: {top: 10}}}
+                />
+
             </UiEntity>
 
 
         </UiEntity>
+
+
+
     </UiEntity>
 )
 
@@ -179,7 +175,6 @@ function getPlayerPosition() {
 }
 
 export function setupUi() {
-
     ReactEcsRenderer.setUiRenderer(uiComponent)
-
 }
+

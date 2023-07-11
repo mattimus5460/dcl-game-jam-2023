@@ -6,7 +6,7 @@ export class Player extends Schema {
     @type("number") points: number;
 }
 
-export class EnemyPosition extends Schema {
+export class Position extends Schema {
     @type("number") x: number;
     @type("number") y: number;
     @type("number") z: number;
@@ -14,14 +14,25 @@ export class EnemyPosition extends Schema {
 
 
 export class Enemy extends Schema {
-    @type(EnemyPosition) position: EnemyPosition;
+    @type(Position) position: Position;
     @type("number") health: number = 100;
     @type("string") entityId: string;
 }
 
+export class EnergyCrystal extends Schema {
+    @type(Position) position: Position;
+    @type("number") index: number;
+    @type("boolean") isCollected: boolean = false;
+}
+
+export class Beacon extends Schema {
+    @type("number") energyLevel: number;
+}
 
 export class GameRoomState extends Schema {
     @type("number") countdown: number;
     @type([Enemy]) enemies = new ArraySchema<Enemy>();
     @type({map: Player}) players = new MapSchema<Player>();
+    @type([EnergyCrystal]) crystals = new ArraySchema<EnergyCrystal>();
+    @type(["number"]) beaconHealths = new ArraySchema<number>();
 }
