@@ -33,9 +33,9 @@
       "name": "spawn1",
       "default": true,
       "position": {
-        "x": 22,
+        "x": 24,
         "y": 0,
-        "z": 41
+        "z": 44
       },
       "cameraTarget": {
         "x": 23,
@@ -44,9 +44,13 @@
       }
     }
   ],
+  "allowedMediaHostnames": [
+    "decentraland.org"
+  ],
   "requiredPermissions": [
     "ALLOW_TO_TRIGGER_AVATAR_EMOTE",
-    "ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE"
+    "ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE",
+    "ALLOW_MEDIA_HOSTNAMES"
   ],
   "featureToggles": {},
   "worldConfiguration": {

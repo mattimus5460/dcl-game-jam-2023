@@ -1,10 +1,9 @@
 import {engine, Transform,} from '@dcl/sdk/ecs'
 import {Color4} from '@dcl/sdk/math'
-import ReactEcs, {Button, Label, ReactEcsRenderer, UiEntity} from '@dcl/sdk/react-ecs'
-import {Ghost, EnemyComponent} from "./enemies/ghost";
+import ReactEcs, {Label, ReactEcsRenderer, UiEntity} from '@dcl/sdk/react-ecs'
+import {EnemyComponent} from "./enemies/ghost";
 import * as ui from 'dcl-ui-toolkit'
 import {BarStyles} from 'dcl-ui-toolkit'
-import * as utils from "@dcl-sdk/utils"
 
 const healthLabel = ui.createComponent(ui.CornerLabel, {value: 'Health', xOffset: -190})
 healthLabel.show()
@@ -15,7 +14,7 @@ healthBar.show()
 const ammoLabel = ui.createComponent(ui.CornerLabel, {value: 'Energy', xOffset: -190})
 ammoLabel.show()
 
-export const ammoBar = ui.createComponent(ui.UIBar, {value: 1, color: Color4.Blue(), style: BarStyles.ROUNDGOLD})
+export const ammoBar = ui.createComponent(ui.UIBar, {value: 1, color: Color4.Blue(), style: BarStyles.ROUNDSILVER})
 ammoBar.show()
 
 let zombiesForRound = 0
@@ -42,19 +41,19 @@ baseHealthBar.show()
 const base1HealthLabel = ui.createComponent(ui.CornerLabel, {value: 'Beacon 1 Energy', xOffset: -190})
 base1HealthLabel.show()
 
-export const base1HealthBar = ui.createComponent(ui.UIBar, {value: 0, color: Color4.Green(), style: BarStyles.ROUNDGOLD})
+export const base1HealthBar = ui.createComponent(ui.UIBar, {value: 0, color: Color4.Green(), style: BarStyles.ROUNDSILVER})
 base1HealthBar.show()
 
 const base2HealthLabel = ui.createComponent(ui.CornerLabel, {value: 'Beacon 2 Energy', xOffset: -190})
 base2HealthLabel.show()
 
-export const base2HealthBar = ui.createComponent(ui.UIBar, {value: 0, color: Color4.Green(), style: BarStyles.ROUNDGOLD})
+export const base2HealthBar = ui.createComponent(ui.UIBar, {value: 0, color: Color4.Green(), style: BarStyles.ROUNDSILVER})
 base2HealthBar.show()
 
 const base3HealthLabel = ui.createComponent(ui.CornerLabel, {value: 'Beacon 3 Energy', xOffset: -190})
 base3HealthLabel.show()
 
-export const base3HealthBar = ui.createComponent(ui.UIBar, {value: 0, color: Color4.Green(), style: BarStyles.ROUNDGOLD})
+export const base3HealthBar = ui.createComponent(ui.UIBar, {value: 0, color: Color4.Green(), style: BarStyles.ROUNDSILVER})
 base3HealthBar.show()
 
 const uiComponent = () => (
@@ -159,11 +158,15 @@ const uiComponent = () => (
 
             </UiEntity>
 
-
         </UiEntity>
+        {/*<UiEntity*/}
+        {/*    uiTransform={{*/}
 
-
-
+        {/*        positionType: "absolute",*/}
+        {/*        position: {right: 700, bottom: 200},*/}
+        {/*    }}>*/}
+        {/*<NpcUtilsUi />*/}
+        {/*</UiEntity>*/}
     </UiEntity>
 )
 

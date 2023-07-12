@@ -17,6 +17,8 @@ import {initGamePlay} from "./colyseus/gameplay";
 import './polyfill/delcares'
 import {initBeacons} from "./beacons/beacon";
 import {setupWeapons} from "./weapon";
+import *  as  npc from 'dcl-npc-toolkit'
+import {Dialog} from "dcl-npc-toolkit";
 
 export * from '@dcl/sdk'
 
@@ -175,6 +177,46 @@ export function main() {
     //     .5, 1,
     //     .5, 0,
     // ])
+
+    let ILoveCats: Dialog[] = [
+        {
+            text: `Hi there! I'm Sarah, a sad little girl trapped in this nightmare. I need your help to escape. Listen closely, okay?`,
+        },
+        {
+            text: `Once upon a time, I was a happy girl with dreams. But a terrible curse brought me here. To set me free, you must defeat the ghost and collect energy.`,
+        },
+        {
+            text: `Use that energy to power up the dream beacons and protect the bed beacon at all costs. If the bed beacon loses power, the nightmare wins, and I'll remain trapped forever.`,
+            isEndOfDialog: true
+        }
+    ]
+
+    let myNPC = npc.create(
+        {
+            position: Vector3.create(17, 0, 34),
+            rotation: Quaternion.fromEulerDegrees(0, 25, 0),
+            scale: Vector3.create(1, 1, 1)
+        },
+        //NPC Data Object
+        {
+            type: npc.NPCType.CUSTOM,
+            model: 'models/GirlLP.glb',
+            reactDistance: 3,
+            onlyClickTrigger: true,
+            onlyETrigger: true,
+            textBubble: true,
+            idleAnim: 'cry',
+            bubbleXOffset: .75,
+            bubbleYOffset: -.4,
+
+            onActivate: () => {
+                console.log('npc activated');
+                //npc.talk(myNPC, ILoveCats)
+
+                npc.talkBubble(myNPC, ILoveCats)
+            }
+        }
+    )
 
 
     engine.addSystem(followSystem)
