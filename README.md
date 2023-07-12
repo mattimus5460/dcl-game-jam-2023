@@ -12,7 +12,7 @@ https://play.decentraland.org/?realm=mattm.dcl.eth
 
 **Objective**
 
-- Team up with your friends.
+- Team up with your friends. (**Multiplayer**)
 - Start the game with an initial energy reserve for each player.
 - Work together to eliminate the ghost enemy.
 - Collect energy from defeating the ghost.
