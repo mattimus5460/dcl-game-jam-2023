@@ -1,7 +1,7 @@
 import {engine, Transform,} from '@dcl/sdk/ecs'
 import {Color4} from '@dcl/sdk/math'
 import ReactEcs, {Button, Label, ReactEcsRenderer, UiEntity} from '@dcl/sdk/react-ecs'
-import {Zombie, ZombieC} from "./zombies/zombie";
+import {Ghost, EnemyComponent} from "./enemies/ghost";
 import * as ui from 'dcl-ui-toolkit'
 import {BarStyles} from 'dcl-ui-toolkit'
 import * as utils from "@dcl-sdk/utils"
@@ -144,7 +144,7 @@ const uiComponent = () => (
                 <Label
                     onMouseDown={() => {
                     }}
-                    value={`Zombies: ${[...engine.getEntitiesWith(ZombieC)].length}`}
+                    value={`Zombies: ${[...engine.getEntitiesWith(EnemyComponent)].length}`}
                     fontSize={18}
                     uiTransform={{width: '100%', height: 30, margin: {top: 10}}}
                 />

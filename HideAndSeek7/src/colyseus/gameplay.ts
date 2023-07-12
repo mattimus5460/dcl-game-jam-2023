@@ -5,7 +5,7 @@ import {ambienceSound, countdownRestartSound, playLoop, playOnce} from './sound'
 import {log} from '../back-ports/backPorts';
 import {engine, Entity, GltfContainer, Transform} from '@dcl/sdk/ecs';
 import {Vector3} from '@dcl/sdk/math';
-import {Zombie, ZombieC} from "../zombies/zombie";
+import {Ghost, EnemyComponent} from "../enemies/ghost";
 import {Enemy, EnergyCrystal} from "../../server/src/rooms/GameRoomState";
 import {Room} from 'colyseus.js';
 import {ammoBar, healthBar, increaseZombiesForRound, setCountdown, setZombiesForRound} from "../ui";
@@ -14,7 +14,7 @@ import {allCrystals, createCrystal, removeCrystal} from "../crystals";
 import {dreamForestDark, dreamForestLight, mapComponent} from "../index";
 
 export let connectedRoom: Room<any>;
-export let activeZombies: Map<string, Zombie> = new Map<string, Zombie>();
+export let activeZombies: Map<string, Ghost> = new Map<string, Ghost>();
 
 export function initGamePlay() {
     // play ambient music
@@ -33,7 +33,7 @@ export function initGamePlay() {
 
         function spawnEnemy(x: number, y: number, z: number, entityId: string) {
 
-            const z1 = new Zombie({
+            const z1 = new Ghost({
                 position: {
                     x: x,
                     y: y,
@@ -70,7 +70,7 @@ export function initGamePlay() {
         function resetGame() {
             allCrystals.forEach((crystal) => engine.removeEntity(crystal));
 
-            for (const [entity, zombieSettings] of engine.getEntitiesWith(ZombieC)) {
+            for (const [entity, zombieSettings] of engine.getEntitiesWith(EnemyComponent)) {
                 engine.removeEntity(entity);
             }
 

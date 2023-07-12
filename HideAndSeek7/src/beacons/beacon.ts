@@ -49,7 +49,7 @@ export class Beacon {
 
     constructor(position: Vector3, beaconIndex: number, isHome = false) {
         const beacon = engine.addEntity();
-        GltfContainer.create(beacon, {src: isHome ? 'models/spawnBaseGreen.glb' : 'models/spawnBaseRed.glb'})
+        GltfContainer.create(beacon, {src: isHome ? 'models/GreenOrb.glb' : 'models/RedOrb.glb'})
         Transform.create(beacon, {
             position,
             rotation: isHome ? Quaternion.fromEulerDegrees(0, 0, 0) : Quaternion.fromEulerDegrees(0, -90, 0),
@@ -116,7 +116,7 @@ export class Beacon {
         TextShape.getMutable(this.entity).text = '' + this.energyLevel
         Material.setPbrMaterial(this.particles[this.energyLevel - 1], goodMaterial)
 
-        if(this.energyLevel > 100) return
+        if (this.energyLevel > 100) return
 
         if (this.isHome) {
             baseHealthBar.increase(amount / 100)
@@ -140,7 +140,7 @@ export class Beacon {
         TextShape.getMutable(this.entity).text = '' + this.energyLevel
         Material.setPbrMaterial(this.particles[this.energyLevel - 1], badMaterial)
 
-        if(this.energyLevel > 100) return
+        if (this.energyLevel > 100) return
 
         if (this.isHome) {
             baseHealthBar.decrease(amount / 100)
@@ -176,11 +176,11 @@ export class Beacon {
         }
     }
 
-    updateEnergyDisplays(previousEnergyLevel:number) {
+    updateEnergyDisplays(previousEnergyLevel: number) {
         TextShape.getMutable(this.entity).text = '' + this.energyLevel
 
         Material.setPbrMaterial(this.particles[this.energyLevel - 1],
-            (this.energyLevel > previousEnergyLevel)? goodMaterial: badMaterial)
+            (this.energyLevel > previousEnergyLevel) ? goodMaterial : badMaterial)
 
         if (this.isHome) {
             baseHealthBar.set(this.energyLevel / 100)

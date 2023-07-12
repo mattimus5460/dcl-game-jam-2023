@@ -1,5 +1,5 @@
 import {Animator, engine, Transform} from "@dcl/sdk/ecs";
-import {ZombieC} from "../zombies/zombie";
+import {EnemyComponent} from "../enemies/ghost";
 import {Quaternion, Vector3} from "@dcl/sdk/math";
 import {healthBar} from "../ui";
 import {allBeacons} from "../beacons/beacon";
@@ -8,9 +8,9 @@ import {connectedRoom} from "../colyseus/gameplay";
 
 export function followSystem(dt: number) {
     // iterate over all entiities with a Transform
-    for (const [entity, zombieSettings] of engine.getEntitiesWith(ZombieC)) {
+    for (const [entity, zombieSettings] of engine.getEntitiesWith(EnemyComponent)) {
 
-        const mutableZC = ZombieC.getMutable(entity)
+        const mutableZC = EnemyComponent.getMutable(entity)
         if (zombieSettings.attackTimer > 0)
             mutableZC.attackTimer -= dt
 

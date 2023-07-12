@@ -68,27 +68,27 @@ export class Character {
 
 }
 
-const zombieDefaults =
+const enemyDefaults =
     {moveSpeed: 1, attackDistance: 2, attackTimer: 1, attackTime: .5, engageDistance: 16}
-export const ZombieC = engine.defineComponent("Zombie", {
+export const EnemyComponent = engine.defineComponent("Enemy", {
     moveSpeed: Schemas.Number,
     attackDistance: Schemas.Number,
     engageDistance: Schemas.Number,
     attackTimer: Schemas.Number,
     attackTime: Schemas.Number,
     currentBeaconId: Schemas.Number
-}, zombieDefaults)
+}, enemyDefaults)
 
-export class Zombie extends Character {
+export class Ghost extends Character {
     health: number;
     serverId: string;
     healthBar: Entity;
 
     constructor(transform: TransformType, serverId: string) {
-        super(Math.random() > .5 ?'models/ghost.glb':'models/zombie.glb', transform);
+        super(Math.random() > .5 ?'models/ghost.glb':'models/BlueGhost.glb', transform);
         this.health = 100
         this.serverId = serverId
-        ZombieC.create(this.entity, {
+        EnemyComponent.create(this.entity, {
             currentBeaconId: allBeacons.length -1,
         })
 
