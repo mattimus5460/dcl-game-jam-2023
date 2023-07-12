@@ -25,7 +25,7 @@ https://play.decentraland.org/?realm=mattm.dcl.eth
 Keep an eye out for additional energy boosts scattered around the map to replenish your energy reserves.
 Remember, teamwork and coordination are essential to achieve success in this thrilling game. Good luck!
 
-![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/c0196f34-ec9e-40cd-a9a8-e20232ebc362)
+![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/1433da63-a776-436f-9f00-9f8741a12105)
 
 
 ## How we used AI
