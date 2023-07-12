@@ -45,6 +45,9 @@ Skybox for each level generated using [Blockade Labs Skybox AI Tool](https://sky
 - Nightmare Realm [skybox]([https://skybox.blockadelabs.com/c969b36096aa7556ec4c58293257422e](https://skybox.blockadelabs.com/c2b62fcce0d6243c03dc9802f9310669))
   ![image](https://github.com/mattimus5460/dcl-game-jam-2023/assets/12411825/d35522c2-6084-413b-b144-5a386bbfcfcf)
 
+#### Github Copilot
+
+- AI assisted pair programmer
 
 
 ## Copyright info

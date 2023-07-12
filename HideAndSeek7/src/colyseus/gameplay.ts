@@ -3,15 +3,15 @@ import {connect} from "./connection";
 import {updateLeaderboard} from './leaderboard';
 import {ambienceSound, countdownRestartSound, playLoop, playOnce} from './sound';
 import {log} from '../back-ports/backPorts';
-import {engine, Entity, GltfContainer, Transform} from '@dcl/sdk/ecs';
-import {Vector3} from '@dcl/sdk/math';
-import {Ghost, EnemyComponent} from "../enemies/ghost";
+import {engine, Entity, Material, Transform} from '@dcl/sdk/ecs';
+import {Color4, Vector3} from '@dcl/sdk/math';
+import {EnemyComponent, Ghost} from "../enemies/ghost";
 import {Enemy, EnergyCrystal} from "../../server/src/rooms/GameRoomState";
 import {Room} from 'colyseus.js';
 import {ammoBar, healthBar, increaseZombiesForRound, setCountdown, setZombiesForRound} from "../ui";
 import {allBeacons, initBeacons} from "../beacons/beacon";
 import {allCrystals, createCrystal, removeCrystal} from "../crystals";
-import {dreamForestDark, dreamForestLight, mapComponent} from "../index";
+import {dreamForestDark, dreamForestLight, wallComponent, wallTexture, wallTextureLight} from "../index";
 
 export let connectedRoom: Room<any>;
 export let activeZombies: Map<string, Ghost> = new Map<string, Ghost>();
@@ -172,6 +172,14 @@ export function initGamePlay() {
             Transform.getMutable(dreamForestDark).scale = Vector3.create(.99, .99, .99)
             Transform.getMutable(dreamForestLight).scale =  Vector3.Zero()
 
+            for (const [entity] of engine.getEntitiesWith(wallComponent)) {
+                Material.setPbrMaterial(entity, {
+                    texture: wallTexture,
+                    emissiveTexture: wallTexture,
+                    emissiveColor: Color4.White()
+                })
+            }
+
             initBeacons()
             //countdown.show();
         });
@@ -180,6 +188,14 @@ export function initGamePlay() {
 
             Transform.getMutable(dreamForestDark).scale = Vector3.Zero()
             Transform.getMutable(dreamForestLight).scale = Vector3.create(.99, .99, .99)
+
+            for (const [entity] of engine.getEntitiesWith(wallComponent)) {
+                Material.setPbrMaterial(entity, {
+                    texture: wallTextureLight,
+                    emissiveTexture: wallTextureLight,
+                    emissiveColor: Color4.White()
+                })
+            }
 
             resetGame()
 
@@ -199,6 +215,14 @@ export function initGamePlay() {
             resetGame()
             setZombiesForRound(0)
             initBeacons()
+
+            for (const [entity] of engine.getEntitiesWith(wallComponent)) {
+                Material.setPbrMaterial(entity, {
+                    texture: wallTexture,
+                    emissiveTexture: wallTexture,
+                    emissiveColor: Color4.White()
+                })
+            }
 
             Transform.getMutable(dreamForestDark).scale = Vector3.create(.99, .99, .99)
             Transform.getMutable(dreamForestLight).scale =  Vector3.Zero()

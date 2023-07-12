@@ -144,7 +144,7 @@ const uiComponent = () => (
                 <Label
                     onMouseDown={() => {
                     }}
-                    value={`Zombies: ${[...engine.getEntitiesWith(EnemyComponent)].length}`}
+                    value={`Enemies: ${[...engine.getEntitiesWith(EnemyComponent)].length}`}
                     fontSize={18}
                     uiTransform={{width: '100%', height: 30, margin: {top: 10}}}
                 />
@@ -152,7 +152,7 @@ const uiComponent = () => (
                 <Label
                     onMouseDown={() => {
                     }}
-                    value={`Total Zombies: ${zombiesForRound}`}
+                    value={`Total Enemies: ${zombiesForRound}`}
                     fontSize={18}
                     uiTransform={{width: '100%', height: 30, margin: {top: 10}}}
                 />
