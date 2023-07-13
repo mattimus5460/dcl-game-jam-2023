@@ -1,5 +1,7 @@
 import {
     Animator,
+    AvatarAnchorPointType,
+    AvatarAttach,
     ColliderLayer,
     engine,
     Entity,
@@ -15,7 +17,7 @@ import {
     TransformType
 } from "@dcl/sdk/ecs";
 import {activeZombies, connectedRoom} from "../colyseus/gameplay";
-import {Color4, Vector3} from "@dcl/sdk/math";
+import {Color4, Quaternion, Vector3} from "@dcl/sdk/math";
 import * as utils from "@dcl-sdk/utils"
 import {ammoBar} from "../ui";
 import {allBeacons} from "../beacons/beacon";
@@ -180,6 +182,65 @@ export const playSingleAnimForEntity = (entity: Entity, animName: string) => {
     // }
 }
 
+export const createGhost = (transform: TransformType, attach=false) => {
+    const charEnt = engine.addEntity()
+    GltfContainer.create(charEnt, {
+        src: 'models/ghost.glb'
+    })
+    Transform.create(charEnt, transform)
 
+    Animator.create(charEnt, {
+        states: [
+            {
+                name: "attack",
+                clip: "attack",
+                loop: true,
+                speed: 1,
+                shouldReset: false
+            },
+        ]
+    })
+
+    if(attach){
+        const avatarAttach = engine.addEntity()
+
+        AvatarAttach.create(avatarAttach, {
+            anchorPointId: AvatarAnchorPointType.AAPT_POSITION
+        })
+
+        Transform.getMutable(charEnt).parent = avatarAttach
+    }
+
+    Animator.playSingleAnimation(charEnt, "attack")
+
+    utils.timers.setTimeout(
+        function() { engine.removeEntity(charEnt) },
+        30000
+    )
+
+    return charEnt
+}
+
+
+export const createLosingGhosts = () => {
+    createGhost({
+        position: Vector3.create(17, .25, 35),
+        rotation: Quaternion.fromEulerDegrees(0, 180, 0),
+        scale: Vector3.create(1, 1, 1)
+    })
+
+    createGhost({
+        position: Vector3.create(18, .25, 35),
+        rotation: Quaternion.fromEulerDegrees(0, 200, 0),
+        scale: Vector3.create(1, 1, 1)
+    })
+
+    createGhost({
+        position: Vector3.create(0, 1, -.75),
+        rotation: Quaternion.fromEulerDegrees(0, 0, 0),
+        scale: Vector3.create(1, 1, 1)
+    }, true)
+
+}
 
 

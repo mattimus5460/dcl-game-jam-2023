@@ -7,7 +7,7 @@ import {
     inputSystem,
     Material,
     PointerEvents,
-    PointerEventType,
+    PointerEventType, removeEntityWithChildren,
     TextShape,
     Transform
 } from "@dcl/sdk/ecs";
@@ -24,8 +24,12 @@ const beaconPositions = [
 export let allBeacons: Beacon[] = []
 
 export const initBeacons = () => {
-    allBeacons.forEach((beacon) =>
-        engine.removeEntity(beacon.entity));
+    allBeacons.forEach((beacon) => {
+
+        removeEntityWithChildren(engine, beacon.entity)
+        engine.removeEntity(beacon.entity)
+
+    })
 
     allBeacons = []
 

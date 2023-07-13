@@ -180,13 +180,24 @@ export function main() {
 
     let ILoveCats: Dialog[] = [
         {
-            text: `Hi there! I'm Sarah, a sad little girl trapped in this nightmare. I need your help to escape. Listen closely, okay?`,
+            text: `Oh... um, hello there. I'm Sarah. I... I'm scared and I'm stuck in this nightmare. I need your help to escape. Listen closely, okay?`
         },
         {
-            text: `Once upon a time, I was a happy girl with dreams. But a terrible curse brought me here. To set me free, you must defeat the ghost and collect energy.`,
+            text: `To leave this place you must follow these steps: 
+            \n1. Defeat the ghosts and collect energy.`
         },
         {
-            text: `Use that energy to power up the dream beacons and protect the bed beacon at all costs. If the bed beacon loses power, the nightmare wins, and I'll remain trapped forever.`,
+            text: `\n2. Power up the dream beacons to 100 or more using the energy. 
+             \n3. Protect the bed beacon from reaching 0 energy.`
+        },
+        {
+            text: `\nYour goal is to power up all 4 beacons to over 100 energy and release the nightmare.`
+        },
+        {
+            text: `Coordinate with friends to strategically manage energy and explore for hidden energy boosts!`
+        },
+        {
+            text: `I believe in you! Let's beat this nightmare together. You've got this!`,
             isEndOfDialog: true
         }
     ]

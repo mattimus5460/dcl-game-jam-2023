@@ -30,12 +30,12 @@
   },
   "spawnPoints": [
     {
-      "name": "spawn1",
+      "name": "region",
       "default": true,
       "position": {
-        "x": 24,
-        "y": 0,
-        "z": 44
+        "x": [18,26],
+        "y": [0,0],
+        "z": [38,42]
       },
       "cameraTarget": {
         "x": 23,

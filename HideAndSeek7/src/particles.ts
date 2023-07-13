@@ -38,7 +38,7 @@ export const badMaterial: PBMaterial_PbrMaterial = {
 export const goodMaterial: PBMaterial_PbrMaterial = {
     metallic: 1,
     albedoColor: Color4.create(0.5, 1.5, 2, .1),
-    emissiveColor: Color4.White(),
+    emissiveColor: Color4.Green(),
     emissiveIntensity: 200
 }
 

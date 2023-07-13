@@ -53,3 +53,5 @@ Skybox for each level generated using [Blockade Labs Skybox AI Tool](https://sky
 ## Copyright info
 
 This scene is protected with a standard Apache 2 licence. See the terms and conditions in the [LICENSE](/LICENSE) file.
+
+Sounds used from dcl sound library https://github.com/BillyTeacoin/dclsoundlibrary

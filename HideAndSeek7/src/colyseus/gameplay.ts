@@ -1,11 +1,11 @@
 //import * as ui from '@dcl/ui-scene-utils';
 import {connect} from "./connection";
 import {updateLeaderboard} from './leaderboard';
-import {ambienceSound, countdownRestartSound, playLoop, playOnce} from './sound';
+import {playDark, playLight, playLose} from './sound';
 import {log} from '../back-ports/backPorts';
-import {engine, Entity, Material, Transform} from '@dcl/sdk/ecs';
+import {engine, Entity, Material, removeEntityWithChildren, Transform} from '@dcl/sdk/ecs';
 import {Color4, Vector3} from '@dcl/sdk/math';
-import {EnemyComponent, Ghost} from "../enemies/ghost";
+import {createLosingGhosts, EnemyComponent, Ghost} from "../enemies/ghost";
 import {Enemy, EnergyCrystal} from "../../server/src/rooms/GameRoomState";
 import {Room} from 'colyseus.js';
 import {ammoBar, healthBar, increaseZombiesForRound, setCountdown, setZombiesForRound} from "../ui";
@@ -18,7 +18,8 @@ export let activeZombies: Map<string, Ghost> = new Map<string, Ghost>();
 
 export function initGamePlay() {
     // play ambient music
-    playLoop(ambienceSound, 0.4);
+    //playLoop(ambienceSound, 0.4);
+    playDark()
 
     updateLeaderboard(["- Nobody -"]);
 
@@ -49,11 +50,11 @@ export function initGamePlay() {
             return z1.entity;
         }
 
-        function damageEnemy(entityId: string) {
+        function damageEnemy(entityId: string, amount:number) {
             let curZombie = activeZombies.get(entityId)
 
             if (curZombie)
-                curZombie.damage(10);
+                curZombie.damage(amount);
         }
 
         function destroyEnemy(entityId: string) {
@@ -67,14 +68,20 @@ export function initGamePlay() {
             createCrystal(position, id)
         }
 
+        function loseGame() {
+            playLose()
+            createLosingGhosts()
+        }
+
         function resetGame() {
             allCrystals.forEach((crystal) => engine.removeEntity(crystal));
 
-            for (const [entity, zombieSettings] of engine.getEntitiesWith(EnemyComponent)) {
+            for (const [entity] of engine.getEntitiesWith(EnemyComponent)) {
+                removeEntityWithChildren(engine, entity);
                 engine.removeEntity(entity);
             }
 
-
+            activeZombies.clear()
 
             ammoBar.set(1)
             healthBar.set(1)
@@ -116,9 +123,9 @@ export function initGamePlay() {
         }
 
         // Enemies
-        room.onMessage("enemy-damaged", (entityId: string) => {
-            log("room.onMessage.enemy-damaged", "ENTRY", entityId)
-            damageEnemy(entityId)
+        room.onMessage("enemy-damaged", (data:{entityId: string, damage:number}) => {
+            log("room.onMessage.enemy-damaged", "ENTRY", data.entityId)
+            damageEnemy(data.entityId, data.damage)
 
         });
         room.onMessage("enemy-destroyed", (entityId: string) => {
@@ -126,7 +133,6 @@ export function initGamePlay() {
             destroyEnemy(entityId)
             ammoBar.increase(.05)
         });
-
 
 
         // Energy
@@ -179,7 +185,7 @@ export function initGamePlay() {
                     emissiveColor: Color4.White()
                 })
             }
-
+            playDark()
             initBeacons()
             //countdown.show();
         });
@@ -197,9 +203,18 @@ export function initGamePlay() {
                 })
             }
 
+            playLight()
             resetGame()
 
         });
+
+        room.onMessage("game-lose", () => {
+            log("room.onMessage.game-lose", "ENTRY")
+
+            loseGame()
+            resetGame()
+        });
+
         room.onMessage("finished", () => {
             try {
                 //ui.displayAnnouncement(`${highestPlayer.name} wins!`, 8, Color4.White(), 60);
@@ -211,11 +226,10 @@ export function initGamePlay() {
             // countdown.hide();
         });
         room.onMessage("restart", () => {
-            playOnce(countdownRestartSound);
+           // playOnce(countdownRestartSound);
             resetGame()
             setZombiesForRound(0)
             initBeacons()
-
             for (const [entity] of engine.getEntitiesWith(wallComponent)) {
                 Material.setPbrMaterial(entity, {
                     texture: wallTexture,
@@ -226,6 +240,8 @@ export function initGamePlay() {
 
             Transform.getMutable(dreamForestDark).scale = Vector3.create(.99, .99, .99)
             Transform.getMutable(dreamForestLight).scale =  Vector3.Zero()
+
+            playDark()
         });
 
         room.onLeave((code) => {
