@@ -58,7 +58,9 @@ export class GameRoom extends Room<GameRoomState> {
                 return;
             }
 
-            enemy.health -= 10;
+            const damage = this.state.players.size <= 1 ? 50:  10;
+
+            enemy.health -= damage;
 
             if (enemy.health <= 0) {
                 //remove enemy from enemies
@@ -66,7 +68,7 @@ export class GameRoom extends Room<GameRoomState> {
 
                 this.broadcast("enemy-destroyed", enemy.entityId);
             } else {
-                this.broadcast("enemy-damaged", enemy.entityId);
+                this.broadcast("enemy-damaged", {entityId: enemy.entityId, damage});
             }
 
         });
@@ -85,6 +87,13 @@ export class GameRoom extends Room<GameRoomState> {
         this.onMessage("remove-energy", (client: Client, beaconId: number) => {
             //this.broadcast("remove-energy", beaconId);
             this.state.beaconHealths[beaconId] -= 1;
+
+            if (!this.isFinished && this.state.beaconHealths[3] <= 0) {
+                this.broadcast("game-lose");
+                this.isFinished = true
+                this.state.countdown = 30;
+            }
+
         });
 
         this.onMessage("collect-energy-crystal", (client: Client, crystalId: number) => {
